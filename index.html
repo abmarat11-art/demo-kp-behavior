@@ -7,16 +7,17 @@
 <meta name="description" content="Предварительное коммерческое предложение Cloud Plus для Cake Lab: модуль поведенческого анализа клиентов и персональных уведомлений поверх существующей системы.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#26281f; --text:#3a3d33; --mut:#7a7d6e; --line:#e6dfd0; --line2:#d9d0bd;
-  --bg:#fbf8f1; --bg2:#f4efe3; --navy:#4f6a3f; --navy2:#3f5532; --acc:#6c8a52;
+  /* Палитра бренда Cake Lab (cakelab.uz): логотип #2E513B, оливковый #65744D, фисташковый #B8BF8F, кремовый фон */
+  --ink:#1f2a22; --text:#33402f; --mut:#6f7a68; --line:#e3dccb; --line2:#d3cab3;
+  --bg:#f7f1e6; --bg2:#efe7d8; --navy:#2e513b; --navy2:#24412f; --acc:#65744d; --pist:#b8bf8f;
   --wrap:1120px; --ease:cubic-bezier(.2,.7,.2,1);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
 h1,h2,h3,h4{color:var(--ink);margin:0;font-weight:600;letter-spacing:-.015em;line-height:1.2}
 p{margin:0}
 a{color:inherit;text-decoration:none}
@@ -25,14 +26,17 @@ a{color:inherit;text-decoration:none}
 .eyebrow b{color:var(--acc);font-weight:600;margin-right:10px}
 
 /* nav */
-nav.top{position:sticky;top:0;z-index:20;background:rgba(251,248,241,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-nav.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
-.brand{font-weight:700;letter-spacing:.06em;color:var(--navy);font-size:15px}
+nav.top{position:sticky;top:0;z-index:20;background:rgba(247,241,230,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+nav.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:24px}
+.cl-logo{height:34px;width:auto;display:block}
+.for{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--mut);flex:0 0 auto}
+.brand{font-weight:700;letter-spacing:.06em;color:var(--navy);font-size:14px;white-space:nowrap;flex:0 0 auto}
 .brand small{display:block;font-weight:500;letter-spacing:0;color:var(--mut);font-size:11px;margin-top:2px}
-nav.top ul{display:flex;gap:26px;list-style:none;margin:0;padding:0}
-nav.top a{font-size:13px;font-weight:500;color:var(--mut);padding:6px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+nav.top ul{display:flex;gap:20px;list-style:none;margin:0;padding:0;white-space:nowrap}
+nav.top a{font-size:12.5px;font-weight:500;color:var(--mut);padding:6px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
 nav.top a.on,nav.top a:hover{color:var(--ink);border-color:var(--navy)}
-@media(max-width:960px){nav.top ul{display:none}}
+@media(max-width:1180px){nav.top ul{display:none}}
+@media(max-width:560px){.for span{display:none}}
 
 /* hero */
 .hero{padding:88px 0 64px;border-bottom:1px solid var(--line)}
@@ -44,11 +48,11 @@ nav.top a.on,nav.top a:hover{color:var(--ink);border-color:var(--navy)}
 .btn:hover{background:var(--navy2);border-color:var(--navy2)}
 .btn.ghost{background:transparent;color:var(--navy)}
 .btn.ghost:hover{background:var(--bg2)}
-.card{border:1px solid var(--line);border-radius:8px;background:#fffdf8}
+.card{border:1px solid var(--line);border-radius:8px;background:#fdfaf3}
 .meta{padding:6px 28px}
 .meta div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px}
 .meta div:last-child{border-bottom:0}
-.meta span{color:var(--mut)}
+.meta span{color:var(--mut);flex:0 0 auto}
 .meta b{font-weight:600;color:var(--ink);text-align:right}
 @media(max-width:900px){.hero .grid{grid-template-columns:1fr;gap:40px}}
 
@@ -77,17 +81,17 @@ section{padding:88px 0;border-bottom:1px solid var(--line)}
 
 /* pipeline (static) */
 .pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.pipe .node{padding:22px 20px;border-right:1px solid var(--line);position:relative;background:#fffdf8}
+.pipe .node{padding:22px 20px;border-right:1px solid var(--line);position:relative;background:#fdfaf3}
 .pipe .node:last-child{border-right:0}
 .pipe .node .n{font-size:12px;font-weight:600;color:var(--acc);letter-spacing:.08em}
 .pipe .node h4{font-size:15px;margin-top:10px}
 .pipe .node p{font-size:13px;color:var(--mut);margin-top:6px;line-height:1.5}
-.pipe .node::after{content:"";position:absolute;right:-7px;top:50%;width:12px;height:12px;background:#fffdf8;border-right:1px solid var(--line);border-top:1px solid var(--line);transform:translateY(-50%) rotate(45deg);z-index:1}
+.pipe .node::after{content:"";position:absolute;right:-7px;top:50%;width:12px;height:12px;background:#fdfaf3;border-right:1px solid var(--line);border-top:1px solid var(--line);transform:translateY(-50%) rotate(45deg);z-index:1}
 .pipe .node:last-child::after{display:none}
 @media(max-width:800px){.pipe{grid-template-columns:1fr}.pipe .node{border-right:0;border-bottom:1px solid var(--line)}.pipe .node:last-child{border-bottom:0}.pipe .node::after{display:none}}
 
 .two{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
-.box{padding:28px;border:1px solid var(--line);border-radius:8px;background:#fffdf8}
+.box{padding:28px;border:1px solid var(--line);border-radius:8px;background:#fdfaf3}
 .box h3{font-size:17px}
 .box p{margin-top:10px;font-size:15px;color:var(--text)}
 .box ul{margin:16px 0 0;padding-left:18px;font-size:14px;color:var(--text)}
@@ -97,7 +101,7 @@ section{padding:88px 0;border-bottom:1px solid var(--line)}
 @media(max-width:800px){.two{grid-template-columns:1fr}}
 
 /* scenario */
-.scen{margin-top:24px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fffdf8}
+.scen{margin-top:24px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fdfaf3}
 .scen .head{padding:24px 28px;border-bottom:1px solid var(--line);background:var(--bg2)}
 .scen .head h3{font-size:17px}
 .scen .head p{margin-top:8px;font-size:15px;max-width:70ch}
@@ -105,7 +109,7 @@ section{padding:88px 0;border-bottom:1px solid var(--line)}
 .wk{padding:16px 8px;text-align:center;border-right:1px solid var(--line);font-size:12px;color:var(--mut)}
 .wk:last-child{border-right:0}
 .wk b{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-top:6px}
-.wk.hit b{color:var(--navy)}
+.wk.hit{background:#f1f2e4}.wk.hit b{color:var(--navy)}
 .wk.miss{background:#f6e7d3}.wk.miss b{color:#9a6b2f}
 .scen ol{margin:0;padding:20px 28px 20px 48px;font-size:15px;columns:2;column-gap:40px}
 .scen li{margin:6px 0;break-inside:avoid}
@@ -114,7 +118,7 @@ section{padding:88px 0;border-bottom:1px solid var(--line)}
 
 /* benefit grid */
 .bens{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.ben{padding:26px 28px;border:1px solid var(--line);border-radius:8px;background:#fffdf8}
+.ben{padding:26px 28px;border:1px solid var(--line);border-radius:8px;background:#fdfaf3}
 .ben .k{font-size:12px;font-weight:600;color:var(--acc);letter-spacing:.08em}
 .ben h4{font-size:16px;margin-top:10px}
 .ben p{margin-top:8px;font-size:14px;color:var(--text)}
@@ -137,10 +141,10 @@ section{padding:88px 0;border-bottom:1px solid var(--line)}
 .ev .w{font-size:12px;font-weight:600;color:var(--acc);letter-spacing:.08em}
 .ev h4{font-size:17px;margin-top:6px}
 .ev p{font-size:15px;margin-top:6px;color:var(--text);max-width:60ch}
-.tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:500;color:var(--navy);background:var(--bg2);border:1px solid var(--line);border-radius:4px;padding:4px 10px}
+.tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:500;color:var(--navy);background:#eef0df;border:1px solid var(--line);border-radius:4px;padding:4px 10px}
 
 /* lists */
-.list{padding:28px;border:1px solid var(--line);border-radius:8px;background:#fffdf8}
+.list{padding:28px;border:1px solid var(--line);border-radius:8px;background:#fdfaf3}
 .list h3{font-size:17px;margin-bottom:12px}
 .list ol{margin:0;padding-left:0;list-style:none;counter-reset:n}
 .list li{counter-increment:n;display:grid;grid-template-columns:32px 1fr;gap:8px;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
@@ -150,14 +154,14 @@ section{padding:88px 0;border-bottom:1px solid var(--line)}
 /* final */
 .final{background:var(--navy);color:#fff;border-bottom:0}
 .final .grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:72px;align-items:center}
-.final .eyebrow{color:rgba(255,255,255,.6)}.final .eyebrow b{color:#cfe0b8}
+.final .eyebrow{color:rgba(255,255,255,.6)}.final .eyebrow b{color:var(--pist)}
 .final h2{color:#fff;font-size:clamp(26px,3vw,36px);margin-top:14px;max-width:22ch}
 .final p{margin-top:18px;color:rgba(255,255,255,.8);max-width:56ch}
 .contact{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:28px}
 .contact .l{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600}
 .contact .v{font-size:17px;font-weight:600;margin:6px 0 18px;overflow-wrap:anywhere}
-.contact .btn{width:100%;background:#fbf8f1;color:var(--navy);border-color:#fbf8f1}
-.contact .btn:hover{background:#ece5d3;border-color:#ece5d3}
+.contact .btn{width:100%;background:var(--bg);color:var(--navy);border-color:var(--bg)}
+.contact .btn:hover{background:var(--bg2);border-color:var(--bg2)}
 @media(max-width:900px){.final .grid{grid-template-columns:1fr;gap:36px}}
 
 footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:24px 0;font-size:13px;color:var(--mut)}
@@ -183,8 +187,9 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
       <li><a href="#survey">Обследование</a></li>
       <li><a href="#pilot">Пилот</a></li>
       <li><a href="#risks">Риски</a></li>
-      <li><a href="#contact">Следующий шаг</a></li>
+      <li><a href="#contact">Контакты</a></li>
     </ul>
+    <div class="for"><span>для</span><img class="cl-logo" src="assets/cakelab-logo.svg" alt="Cake Lab"></div>
   </div>
 </nav>
 
@@ -200,6 +205,7 @@ footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;paddin
       </div>
     </div>
     <div class="card meta">
+      <div style="justify-content:flex-start;padding:22px 0 18px"><img src="assets/cakelab-logo.svg" alt="Cake Lab" style="height:56px;width:auto"></div>
       <div><span>Исполнитель</span><b>Cloud Plus</b></div>
       <div><span>Заказчик</span><b data-field="client">Cake Lab</b></div>
       <div><span>Статус документа</span><b>Предварительное</b></div>
