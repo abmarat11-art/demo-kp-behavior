@@ -106,6 +106,13 @@ html[data-stage="splash"] .h-in{animation-play-state:paused}
 @media(max-width:900px){.hero .wrap{grid-template-columns:1fr}.panel{transform:none}.float.a{right:0}.float.b{left:0}}
 
 /* ===== MARQUEE ===== */
+.nums{padding:0 0 64px}
+.nums .wrap{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.num{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 22px 18px}
+.num b{display:block;font-family:"Unbounded";font-size:clamp(28px,3vw,40px);font-weight:700;line-height:1;color:var(--acc);letter-spacing:-.02em}
+.num span{display:block;margin-top:10px;font-size:13px;color:var(--mut);line-height:1.35}
+@media(max-width:900px){.nums .wrap{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.nums .wrap{grid-template-columns:1fr 1fr;gap:10px}.num{padding:16px}}
 .marq{border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:14px 0;overflow:hidden;background:var(--bg2)}
 .marq .track{display:flex;gap:48px;white-space:nowrap;animation:marq 32s linear infinite;width:max-content}
 .marq span{font-family:"Unbounded";font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase}
@@ -117,7 +124,7 @@ section{padding:96px 0}
 section+section{border-top:1px solid var(--line)}
 .sec{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:56px;align-items:start}
 .rail{position:sticky;top:90px}
-.rail h2{font-size:clamp(20px,2.1vw,26px);margin-top:14px;overflow-wrap:anywhere;hyphens:auto;-webkit-hyphens:auto}
+.rail h2{font-size:clamp(20px,2.1vw,26px);margin-top:14px;overflow-wrap:anywhere}
 .rail p{color:var(--mut);font-size:14px;margin-top:14px}
 @media(max-width:900px){.sec{grid-template-columns:1fr;gap:28px}.rail{position:static}}
 .rv{opacity:0;transform:translateY(28px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
@@ -375,7 +382,7 @@ footer{padding:26px 0;font-size:12px;color:var(--mut);display:flex;justify-conte
     <div>
       <div class="kicker h-in">Предварительное коммерческое предложение · 17 сентября 2026</div>
       <h1 class="h-in">Модуль поведенческого анализа клиентов и <em>персональных уведомлений</em></h1>
-      <p class="lead h-in">Поверх вашей системы, через открытый API: находим устойчивые повторяющиеся покупки, замечаем, когда клиент отклонился от привычки, — и в согласованный момент инициируем персональное сообщение.</p>
+      <p class="lead h-in">Поверх системы Cake Lab, через открытый API: находим устойчивые повторяющиеся покупки, замечаем, когда клиент отклонился от привычки, — и в согласованный момент инициируем персональное сообщение.</p>
       <div class="cta h-in">
         <a class="btn" href="#concept">Как это работает <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12l7 7 7-7"/></svg></a>
         <a class="btn ghost" href="#terms">Условия и следующий шаг</a>
@@ -407,6 +414,14 @@ footer{padding:26px 0;font-size:12px;color:var(--mut);display:flex;justify-conte
   </div>
 </header>
 
+<section class="nums" aria-label="Ключевые цифры предложения"><div class="wrap">
+  <div class="num rv"><b>0</b><span>изменений в вашей текущей системе — только чтение через API</span></div>
+  <div class="num rv d1"><b>5</b><span>подтверждённых фактов встречи — основа предложения</span></div>
+  <div class="num rv d2"><b>1</b><span>сценарий в пилоте — регулярная покупка в определённый день</span></div>
+  <div class="num rv d3"><b>5</b><span>шагов пилота с техническим журналом срабатываний</span></div>
+  <div class="num rv d4"><b>10</b><span>вопросов к согласованию до старта — без скрытых допущений</span></div>
+</div></section>
+
 <div class="marq"><div class="track">
   <span>Открытый API вашей системы</span><span>Устойчивые паттерны</span><span>Отклонение от привычки</span><span>Персональное уведомление</span><span>Сначала правила — ИИ по необходимости</span><span>Обследование → пилот</span>
   <span>Открытый API вашей системы</span><span>Устойчивые паттерны</span><span>Отклонение от привычки</span><span>Персональное уведомление</span><span>Сначала правила — ИИ по необходимости</span><span>Обследование → пилот</span>
@@ -429,7 +444,7 @@ footer{padding:26px 0;font-size:12px;color:var(--mut);display:flex;justify-conte
 <!-- CONCEPT -->
 <section id="concept">
   <div class="wrap sec">
-    <div class="rail rv"><div class="kicker">02 · Концепция</div><h2>Дополнительный модуль поверх вашей системы</h2><p>Ничего не меняем в существующей системе — читаем данные через API и возвращаем событие.</p></div>
+    <div class="rail rv"><div class="kicker">02 · Концепция</div><h2>Дополни&shy;тельный модуль поверх вашей системы</h2><p>Ничего не меняем в существующей системе — читаем данные через API и возвращаем событие.</p></div>
     <div>
       <div class="pipe rv" id="pipe">
         <div class="dot"></div>
