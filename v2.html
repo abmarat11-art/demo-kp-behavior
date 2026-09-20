@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cake Lab — предложение Cloud Plus: напоминания клиентам, которые пропустили привычную покупку</title>
+<meta name="description" content="Предварительное предложение Cloud Plus для Cake Lab: модуль, который замечает пропущенную регулярную покупку и передаёт событие для персонального напоминания. Обследование, пилот на одном сценарии, условия.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#1f2a22; --text:#33402f; --mut:#6f7a68; --line:#ddd6c4;
+  --bg:#f7f1e6; --green:#2e513b; --olive:#65744d; --pist:#e9ebd8;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 "Montserrat",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{color:var(--ink);font-weight:600;margin:0;line-height:1.25}
+p{margin:0}
+a{color:var(--green)}
+.page{max-width:760px;margin:0 auto;padding:40px 24px 72px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.top .from{font-size:13px;color:var(--mut);line-height:1.5}
+.top .from b{display:block;font-size:14px;color:var(--green);letter-spacing:.08em}
+.top img{height:44px;width:auto}
+.req{margin-top:28px;font-size:13px;color:var(--mut);display:grid;grid-template-columns:130px 1fr;row-gap:4px}
+.req b{font-weight:500;color:var(--text)}
+h1{font-size:clamp(26px,3.6vw,34px);margin-top:36px;letter-spacing:-.01em}
+.lead{font-size:17px;margin-top:18px;max-width:60ch}
+h2{font-size:21px;margin-top:56px;padding-top:24px;border-top:1px solid var(--line)}
+h3{font-size:16px;margin-top:22px}
+.page>p,.page>ul,.page>ol{margin-top:14px;max-width:64ch}
+ul,ol{padding-left:22px}
+li{margin:6px 0}
+.note{font-size:14px;color:var(--mut);margin-top:12px;max-width:64ch}
+
+/* схема подключения — три реальных участника, без иконок */
+.flow{margin-top:22px;display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr;align-items:stretch;gap:0}
+.flow .b{border:1px solid var(--line);padding:14px 16px;background:#fdfaf3;font-size:14px}
+.flow .b b{display:block;color:var(--ink);font-weight:600;margin-bottom:4px}
+.flow .b span{color:var(--mut)}
+.flow .a{display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:18px}
+@media(max-width:600px){.flow{grid-template-columns:1fr}.flow .a{transform:rotate(90deg);height:28px}}
+
+/* сценарий — календарь пятниц одного клиента */
+.cal{margin-top:20px;border:1px solid var(--line);background:#fdfaf3}
+.cal .h{padding:12px 16px;border-bottom:1px solid var(--line);font-size:14px}
+.cal .h b{color:var(--ink)}
+.cal .days{display:grid;grid-template-columns:repeat(8,1fr)}
+.cal .d{padding:12px 6px;text-align:center;font-size:12px;color:var(--mut);border-right:1px solid var(--line)}
+.cal .d:last-child{border-right:0}
+.cal .d b{display:block;margin-top:6px;font-size:13px;font-weight:600;color:var(--green)}
+.cal .d.miss{background:#f6e7d3}.cal .d.miss b{color:#9a6b2f}
+@media(max-width:600px){.cal .days{grid-template-columns:repeat(4,1fr)}.cal .d:nth-child(4){border-right:0}.cal .d:nth-child(-n+4){border-bottom:1px solid var(--line)}}
+.cal .r{padding:12px 16px;font-size:14px;border-top:1px solid var(--line)}
+.msg{margin:14px 16px 16px;padding:12px 14px;background:var(--pist);font-size:14px;max-width:46ch;border-left:3px solid var(--olive)}
+.msg small{display:block;color:var(--mut);font-size:12px;margin-bottom:4px}
+
+/* таблицы условий */
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:15px}
+th,td{text-align:left;padding:12px 10px 12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;font-weight:600;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+td.n{white-space:nowrap;color:var(--ink);font-weight:500}
+.ph{color:#9a6b2f;background:#f6e7d3;padding:0 4px}
+@media(max-width:600px){table,thead,tbody,tr,th,td{display:block}thead{display:none}td{padding:6px 0;border:0}td.n{padding-top:14px}tr{border-bottom:1px solid var(--line);padding-bottom:10px}}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:8px}
+@media(max-width:600px){.two{grid-template-columns:1fr}}
+
+.next{margin-top:56px;padding:24px;background:#fdfaf3;border:1px solid var(--line)}
+.next h2{border:0;padding:0;margin:0;font-size:19px}
+.next p{margin-top:10px;max-width:60ch}
+.sign{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:14px}
+.sign b{display:block;color:var(--ink);font-weight:600}
+.sign span{color:var(--mut)}
+@media(max-width:600px){.sign{grid-template-columns:1fr}}
+footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{body{background:#fff}.page{padding:0}h2{break-after:avoid}.cal,.flow,table,.next{break-inside:avoid}}
+</style>
+</head>
+<body>
+<main class="page">
+
+<div class="top">
+  <div class="from"><b>CLOUD PLUS</b>Предварительное коммерческое предложение<br>17 сентября 2026</div>
+  <img src="assets/cakelab-logo.svg" alt="Cake Lab">
+</div>
+
+<div class="req">
+  <span>Кому</span><b data-field="client">Cake Lab</b>
+  <span>По итогам</span><b>встречи от <span data-field="meeting-date">[дата встречи]</span></b>
+  <span>Статус</span><b>предварительное, не оферта</b>
+</div>
+
+<h1>Напоминать клиенту, когда он пропустил привычную покупку</h1>
+<p class="lead">Мы предлагаем добавить к системе Cake Lab небольшой модуль. Он читает историю заказов через ваш API, находит клиентов с устойчивой привычкой — например, торт каждую пятницу — и, когда привычная покупка не состоялась, передаёт событие для персонального напоминания. Сама система при этом не меняется.</p>
+
+<h2>Почему это уместно именно сейчас</h2>
+<p>На встрече прозвучало пять вещей, от которых мы отталкиваемся: у Cake Lab своя система с открытым API; клиенты уже делятся на группы по частоте покупок и возвратам; заказы приходят из приложения, сайта и Telegram-бота и собираются в одном месте; типовые заказы обрабатываются автоматически, сложные — сотрудниками; есть интерес к более глубокому анализу поведения отдельных клиентов.</p>
+<p>Значит, данные для задачи уже есть, а канал для напоминания — тоже. Не хватает одного: чтобы кто-то замечал момент, когда постоянный клиент вдруг не пришёл. Сейчас это видно только по отчёту за период, когда напоминать уже поздно.</p>
+
+<h2>Как модуль встраивается</h2>
+<div class="flow">
+  <div class="b"><b>Система Cake Lab</b><span>история заказов по клиентам — только чтение через API</span></div>
+  <div class="a">→</div>
+  <div class="b"><b>Модуль Cloud Plus</b><span>ищет устойчивые привычки, фиксирует пропуск, формирует событие</span></div>
+  <div class="a">→</div>
+  <div class="b"><b>Telegram-бот или сотрудник</b><span>получает событие и отправляет напоминание — кому и как, решаете вы</span></div>
+</div>
+<p class="note">В вашей системе ничего не дорабатывается и не переписывается. Модуль работает отдельно, доступ — только на чтение, в объёме, который согласуем.</p>
+
+<h2>Один сценарий, на котором проверяем идею</h2>
+<div class="cal">
+  <div class="h"><b>Клиент N</b> · заказывает через приложение «Наполеон» по пятницам</div>
+  <div class="days">
+    <div class="d">пт 3.07<b>заказ</b></div><div class="d">пт 10.07<b>заказ</b></div><div class="d">пт 17.07<b>заказ</b></div><div class="d">пт 24.07<b>заказ</b></div>
+    <div class="d">пт 31.07<b>заказ</b></div><div class="d">пт 7.08<b>заказ</b></div><div class="d">пт 14.08<b>заказ</b></div><div class="d miss">пт 21.08<b>нет заказа</b></div>
+  </div>
+  <div class="r">Семь пятниц подряд — привычка считается устойчивой. В восьмую пятницу заказа нет; по истечении допустимого окна (например, до субботы) модуль формирует событие.</div>
+  <div class="msg"><small>Пример события для бота или сотрудника</small>Клиент N обычно заказывает «Наполеон» по пятницам, последний заказ 14.08. Предложить напоминание?</div>
+</div>
+<p class="note">Что считать устойчивой привычкой (сколько повторов), какое отклонение допустимо и кто получает событие — бот автоматически или сотрудник вручную — договариваемся на обследовании. Текст напоминания согласует Cake Lab.</p>
+
+<h2>Что это даёт Cake Lab</h2>
+<ul>
+  <li>Постоянного клиента, который пропал, видно в ту же неделю, а не в отчёте за квартал.</li>
+  <li>Напоминание про конкретный товар в привычный день — это не рассылка, и клиент воспринимает его иначе.</li>
+  <li>Сотрудникам не нужно вручную просматривать базу в поисках «кто давно не заказывал».</li>
+  <li>Дальше на той же основе можно добавлять другие привычки: «раз в две недели», «перед выходными», «к дате».</li>
+</ul>
+<p class="note">Сколько клиентов удастся вернуть, зависит от глубины истории и качества данных — это и проверяет пилот. Обещать процент до пилота мы не будем.</p>
+
+<h2>Как пойдёт работа</h2>
+<h3>1. Обследование</h3>
+<p>Смотрим документацию и реальные данные API: глубину истории, полноту, как записаны клиент и товар. Вместе определяем правила сценария, канал напоминания, требования к клиентским данным и критерии приёмки пилота. Итог — короткое техническое задание с составом пилота, сроком и стоимостью.</p>
+<h3>2. Пилот на одном сценарии</h3>
+<p>Подключаемся к тестовому контуру API, обрабатываем согласованный срез истории, отлавливаем один тип привычки и пропуск по ней, формируем события. Результат — журнал срабатываний, по которому видно, что модуль находит и что пропускает. Принимаем пилот по критериям из обследования.</p>
+<h3>3. Решение о внедрении</h3>
+<p>По журналу пилота решаем, подключать ли модуль к рабочей системе, какие ещё привычки добавлять и нужен ли для сложных случаев ИИ. Про ИИ заранее ничего не обещаем: для «каждую пятницу» достаточно понятных правил, которые можно проверить руками.</p>
+
+<h2>Условия</h2>
+<table>
+  <thead><tr><th>Этап</th><th>Срок</th><th>Стоимость</th><th>Оплата</th></tr></thead>
+  <tbody>
+    <tr><td class="n">Обследование</td><td data-field="survey-term"><span class="ph">[срок]</span></td><td data-field="survey-price"><span class="ph">[сумма]</span></td><td data-field="survey-pay"><span class="ph">[условия]</span></td></tr>
+    <tr><td class="n">Пилот</td><td>по итогам обследования</td><td>по итогам обследования</td><td>фиксируется в ТЗ</td></tr>
+  </tbody>
+</table>
+<p class="note">Стоимость пилота и внедрения называем только после обследования — до него мы не знаем, что лежит в ваших данных, а оценка «на глаз» невыгодна обеим сторонам. Предложение действительно до <span data-field="valid-until" class="ph">[дата]</span>.</p>
+
+<div class="two">
+  <div>
+    <h3>Что не входит</h3>
+    <ul>
+      <li>Изменения в системе Cake Lab, приложении, сайте и боте.</li>
+      <li>Отправка сообщений клиентам от нашего имени — только событие для вашего канала.</li>
+      <li>Сложные модели поведения и ИИ — отдельным этапом после пилота, если понадобятся.</li>
+    </ul>
+  </div>
+  <div>
+    <h3>Что нужно уточнить до старта</h3>
+    <ul>
+      <li>Кто владелец задачи со стороны Cake Lab и принимает решение.</li>
+      <li>Какие данные и методы доступны через API, какая глубина истории.</li>
+      <li>Кому уходит событие — боту автоматически или сотруднику.</li>
+      <li>Есть ли согласия клиентов на такие сообщения.</li>
+      <li>По каким показателям считать пилот успешным.</li>
+    </ul>
+  </div>
+</div>
+
+<div class="next">
+  <h2>Следующий шаг</h2>
+  <p>Рабочая встреча на 45 минут с владельцем задачи и тем, кто отвечает за API. На ней подтверждаем сценарий, смотрим, какие данные реально доступны, и договариваемся о границах обследования.</p>
+  <div class="sign">
+    <div><b>Cloud Plus</b><span data-field="person">[Контактное лицо]</span><br><span data-field="phone">[Телефон / e-mail]</span></div>
+    <div><b>Удобное время</b><span>предложите два-три варианта на этой или следующей неделе — подстроимся</span></div>
+  </div>
+</div>
+
+<footer><span>Cloud Plus · предварительное предложение для Cake Lab</span><span>17 сентября 2026 · не является офертой</span></footer>
+</main>
+</body>
+</html>
