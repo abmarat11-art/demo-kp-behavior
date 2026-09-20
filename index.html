@@ -3,382 +3,204 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cake Lab · Модуль поведенческого анализа клиентов — предварительное коммерческое предложение Cloud Plus</title>
-<meta name="description" content="Предварительное коммерческое предложение Cloud Plus для Cake Lab: модуль поведенческого анализа клиентов и персональных уведомлений поверх существующей системы.">
+<title>Cake Lab — предложение Cloud Plus: напоминания клиентам, которые пропустили привычную покупку</title>
+<meta name="description" content="Предварительное предложение Cloud Plus для Cake Lab: модуль, который замечает пропущенную регулярную покупку и передаёт событие для персонального напоминания. Обследование, пилот на одном сценарии, условия.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* Палитра бренда Cake Lab (cakelab.uz): логотип #2E513B, оливковый #65744D, фисташковый #B8BF8F, кремовый фон */
-  --ink:#1f2a22; --text:#33402f; --mut:#6f7a68; --line:#e3dccb; --line2:#d3cab3;
-  --bg:#f7f1e6; --bg2:#efe7d8; --navy:#2e513b; --navy2:#24412f; --acc:#65744d; --pist:#b8bf8f;
-  --wrap:1120px; --ease:cubic-bezier(.2,.7,.2,1);
+  --ink:#1f2a22; --text:#33402f; --mut:#6f7a68; --line:#ddd6c4;
+  --bg:#f7f1e6; --green:#2e513b; --olive:#65744d; --pist:#e9ebd8;
 }
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--text);font-family:"Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased}
-h1,h2,h3,h4{color:var(--ink);margin:0;font-weight:600;letter-spacing:-.015em;line-height:1.2}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.65 "Montserrat",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+h1,h2,h3{color:var(--ink);font-weight:600;margin:0;line-height:1.25}
 p{margin:0}
-a{color:inherit;text-decoration:none}
-.wrap{max-width:var(--wrap);margin:0 auto;padding:0 32px}
-.eyebrow{font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut)}
-.eyebrow b{color:var(--acc);font-weight:600;margin-right:10px}
+a{color:var(--green)}
+.page{max-width:760px;margin:0 auto;padding:40px 24px 72px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.top .from{font-size:13px;color:var(--mut);line-height:1.5}
+.top .from b{display:block;font-size:14px;color:var(--green);letter-spacing:.08em}
+.top img{height:44px;width:auto}
+.req{margin-top:28px;font-size:13px;color:var(--mut);display:grid;grid-template-columns:130px 1fr;row-gap:4px}
+.req b{font-weight:500;color:var(--text)}
+h1{font-size:clamp(26px,3.6vw,34px);margin-top:36px;letter-spacing:-.01em}
+.lead{font-size:17px;margin-top:18px;max-width:60ch}
+h2{font-size:21px;margin-top:56px;padding-top:24px;border-top:1px solid var(--line)}
+h3{font-size:16px;margin-top:22px}
+.page>p,.page>ul,.page>ol{margin-top:14px;max-width:64ch}
+ul,ol{padding-left:22px}
+li{margin:6px 0}
+.note{font-size:14px;color:var(--mut);margin-top:12px;max-width:64ch}
 
-/* nav */
-nav.top{position:sticky;top:0;z-index:20;background:rgba(247,241,230,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-nav.top .wrap{display:flex;align-items:center;justify-content:space-between;height:64px;gap:24px}
-.cl-logo{height:34px;width:auto;display:block}
-.for{display:flex;align-items:center;gap:12px;font-size:12px;color:var(--mut);flex:0 0 auto}
-.brand{font-weight:700;letter-spacing:.06em;color:var(--navy);font-size:14px;white-space:nowrap;flex:0 0 auto}
-.brand small{display:block;font-weight:500;letter-spacing:0;color:var(--mut);font-size:11px;margin-top:2px}
-nav.top ul{display:flex;gap:20px;list-style:none;margin:0;padding:0;white-space:nowrap}
-nav.top a{font-size:12.5px;font-weight:500;color:var(--mut);padding:6px 0;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
-nav.top a.on,nav.top a:hover{color:var(--ink);border-color:var(--navy)}
-@media(max-width:1180px){nav.top ul{display:none}}
-@media(max-width:560px){.for span{display:none}}
+/* схема подключения — три реальных участника, без иконок */
+.flow{margin-top:22px;display:grid;grid-template-columns:1fr 24px 1fr 24px 1fr;align-items:stretch;gap:0}
+.flow .b{border:1px solid var(--line);padding:14px 16px;background:#fdfaf3;font-size:14px}
+.flow .b b{display:block;color:var(--ink);font-weight:600;margin-bottom:4px}
+.flow .b span{color:var(--mut)}
+.flow .a{display:flex;align-items:center;justify-content:center;color:var(--mut);font-size:18px}
+@media(max-width:600px){.flow{grid-template-columns:1fr}.flow .a{transform:rotate(90deg);height:28px}}
 
-/* hero */
-.hero{padding:88px 0 64px;border-bottom:1px solid var(--line)}
-.hero .grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:72px;align-items:end}
-.hero h1{font-size:clamp(32px,4vw,48px);font-weight:600;margin-top:22px;max-width:16ch}
-.hero .lead{font-size:18px;line-height:1.6;color:var(--text);margin-top:24px;max-width:56ch}
-.hero .cta{display:flex;gap:12px;margin-top:36px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;justify-content:center;height:46px;padding:0 22px;border-radius:6px;font-size:14px;font-weight:600;border:1px solid var(--navy);background:var(--navy);color:#fff;transition:background .2s,border-color .2s}
-.btn:hover{background:var(--navy2);border-color:var(--navy2)}
-.btn.ghost{background:transparent;color:var(--navy)}
-.btn.ghost:hover{background:var(--bg2)}
-.card{border:1px solid var(--line);border-radius:8px;background:#fdfaf3}
-.meta{padding:6px 28px}
-.meta div{display:flex;justify-content:space-between;gap:16px;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px}
-.meta div:last-child{border-bottom:0}
-.meta span{color:var(--mut);flex:0 0 auto}
-.meta b{font-weight:600;color:var(--ink);text-align:right}
-@media(max-width:900px){.hero .grid{grid-template-columns:1fr;gap:40px}}
+/* сценарий — календарь пятниц одного клиента */
+.cal{margin-top:20px;border:1px solid var(--line);background:#fdfaf3}
+.cal .h{padding:12px 16px;border-bottom:1px solid var(--line);font-size:14px}
+.cal .h b{color:var(--ink)}
+.cal .days{display:grid;grid-template-columns:repeat(8,1fr)}
+.cal .d{padding:12px 6px;text-align:center;font-size:12px;color:var(--mut);border-right:1px solid var(--line)}
+.cal .d:last-child{border-right:0}
+.cal .d b{display:block;margin-top:6px;font-size:13px;font-weight:600;color:var(--green)}
+.cal .d.miss{background:#f6e7d3}.cal .d.miss b{color:#9a6b2f}
+@media(max-width:600px){.cal .days{grid-template-columns:repeat(4,1fr)}.cal .d:nth-child(4){border-right:0}.cal .d:nth-child(-n+4){border-bottom:1px solid var(--line)}}
+.cal .r{padding:12px 16px;font-size:14px;border-top:1px solid var(--line)}
+.msg{margin:14px 16px 16px;padding:12px 14px;background:var(--pist);font-size:14px;max-width:46ch;border-left:3px solid var(--olive)}
+.msg small{display:block;color:var(--mut);font-size:12px;margin-bottom:4px}
 
-/* key figures */
-.figs{padding:40px 0;border-bottom:1px solid var(--line)}
-.figs .row{display:grid;grid-template-columns:repeat(5,1fr)}
-.fig{padding:8px 28px 8px 0;margin-right:28px;border-right:1px solid var(--line)}
-.fig:last-child{border-right:0;margin-right:0}
-.fig b{display:block;font-size:34px;font-weight:600;color:var(--navy);letter-spacing:-.02em;line-height:1}
-.fig span{display:block;margin-top:10px;font-size:13px;line-height:1.45;color:var(--mut)}
-@media(max-width:900px){.figs .row{grid-template-columns:repeat(2,1fr);gap:24px 0}.fig:nth-child(2n){border-right:0}}
-@media(max-width:560px){.figs .row{grid-template-columns:1fr}.fig{border-right:0;border-bottom:1px solid var(--line);padding:16px 0;margin:0}.fig:last-child{border-bottom:0}}
+/* таблицы условий */
+table{width:100%;border-collapse:collapse;margin-top:18px;font-size:15px}
+th,td{text-align:left;padding:12px 10px 12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;font-weight:600;color:var(--mut);letter-spacing:.06em;text-transform:uppercase}
+td.n{white-space:nowrap;color:var(--ink);font-weight:500}
+.ph{color:#9a6b2f;background:#f6e7d3;padding:0 4px}
+@media(max-width:600px){table,thead,tbody,tr,th,td{display:block}thead{display:none}td{padding:6px 0;border:0}td.n{padding-top:14px}tr{border-bottom:1px solid var(--line);padding-bottom:10px}}
 
-/* sections */
-section{padding:88px 0;border-bottom:1px solid var(--line)}
-.sec{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:64px;align-items:start}
-.rail{position:sticky;top:92px}
-.rail h2{font-size:clamp(22px,2.2vw,28px);margin-top:14px;overflow-wrap:anywhere}
-.rail p{color:var(--mut);font-size:14px;margin-top:14px;line-height:1.6}
-@media(max-width:900px){.sec{grid-template-columns:1fr;gap:32px}.rail{position:static}section{padding:64px 0}}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-top:8px}
+@media(max-width:600px){.two{grid-template-columns:1fr}}
 
-/* facts list */
-.facts{border-top:1px solid var(--line2)}
-.fact{display:grid;grid-template-columns:56px 1fr;gap:16px;padding:20px 0;border-bottom:1px solid var(--line);font-size:16px}
-.fact .k{font-size:12px;font-weight:600;color:var(--mut);padding-top:5px;letter-spacing:.06em}
+.next{margin-top:56px;padding:24px;background:#fdfaf3;border:1px solid var(--line)}
+.next h2{border:0;padding:0;margin:0;font-size:19px}
+.next p{margin-top:10px;max-width:60ch}
+.sign{margin-top:28px;display:grid;grid-template-columns:1fr 1fr;gap:24px;font-size:14px}
+.sign b{display:block;color:var(--ink);font-weight:600}
+.sign span{color:var(--mut)}
+@media(max-width:600px){.sign{grid-template-columns:1fr}}
+footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+@media print{body{background:#fff}.page{padding:0}h2{break-after:avoid}.cal,.flow,table,.next{break-inside:avoid}}
 
-/* pipeline (static) */
-.pipe{display:grid;grid-template-columns:repeat(5,1fr);gap:0;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.pipe .node{padding:22px 20px;border-right:1px solid var(--line);position:relative;background:#fdfaf3}
-.pipe .node:last-child{border-right:0}
-.pipe .node .n{font-size:12px;font-weight:600;color:var(--acc);letter-spacing:.08em}
-.pipe .node h4{font-size:15px;margin-top:10px}
-.pipe .node p{font-size:13px;color:var(--mut);margin-top:6px;line-height:1.5}
-.pipe .node::after{content:"";position:absolute;right:-7px;top:50%;width:12px;height:12px;background:#fdfaf3;border-right:1px solid var(--line);border-top:1px solid var(--line);transform:translateY(-50%) rotate(45deg);z-index:1}
-.pipe .node:last-child::after{display:none}
-@media(max-width:800px){.pipe{grid-template-columns:1fr}.pipe .node{border-right:0;border-bottom:1px solid var(--line)}.pipe .node:last-child{border-bottom:0}.pipe .node::after{display:none}}
-
-.two{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:24px}
-.box{padding:28px;border:1px solid var(--line);border-radius:8px;background:#fdfaf3}
-.box h3{font-size:17px}
-.box p{margin-top:10px;font-size:15px;color:var(--text)}
-.box ul{margin:16px 0 0;padding-left:18px;font-size:14px;color:var(--text)}
-.box li{margin:6px 0}
-.box.dark{background:var(--navy);border-color:var(--navy);color:#fff}
-.box.dark h3{color:#fff}.box.dark p,.box.dark ul{color:rgba(255,255,255,.82)}
-@media(max-width:800px){.two{grid-template-columns:1fr}}
-
-/* scenario */
-.scen{margin-top:24px;border:1px solid var(--line);border-radius:8px;overflow:hidden;background:#fdfaf3}
-.scen .head{padding:24px 28px;border-bottom:1px solid var(--line);background:var(--bg2)}
-.scen .head h3{font-size:17px}
-.scen .head p{margin-top:8px;font-size:15px;max-width:70ch}
-.weeks{display:grid;grid-template-columns:repeat(8,1fr);border-bottom:1px solid var(--line)}
-.wk{padding:16px 8px;text-align:center;border-right:1px solid var(--line);font-size:12px;color:var(--mut)}
-.wk:last-child{border-right:0}
-.wk b{display:block;font-size:13px;font-weight:600;color:var(--ink);margin-top:6px}
-.wk.hit{background:#f1f2e4}.wk.hit b{color:var(--navy)}
-.wk.miss{background:#f6e7d3}.wk.miss b{color:#9a6b2f}
-.scen ol{margin:0;padding:20px 28px 20px 48px;font-size:15px;columns:2;column-gap:40px}
-.scen li{margin:6px 0;break-inside:avoid}
-.scen .note{padding:14px 28px 20px;font-size:13px;color:var(--mut);border-top:1px solid var(--line)}
-@media(max-width:800px){.weeks{grid-template-columns:repeat(4,1fr)}.wk:nth-child(4){border-right:0}.wk:nth-child(-n+4){border-bottom:1px solid var(--line)}.scen ol{columns:1}}
-
-/* benefit grid */
-.bens{display:grid;grid-template-columns:1fr 1fr;gap:24px}
-.ben{padding:26px 28px;border:1px solid var(--line);border-radius:8px;background:#fdfaf3}
-.ben .k{font-size:12px;font-weight:600;color:var(--acc);letter-spacing:.08em}
-.ben h4{font-size:16px;margin-top:10px}
-.ben p{margin-top:8px;font-size:14px;color:var(--text)}
-@media(max-width:700px){.bens{grid-template-columns:1fr}}
-
-/* checklist */
-.check{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;border-top:1px solid var(--line2)}
-.ck{display:flex;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);font-size:15px}
-.ck i{flex:0 0 18px;height:18px;margin-top:4px;border:1.5px solid var(--navy);border-radius:3px;position:relative}
-.ck i::after{content:"";position:absolute;left:5px;top:1px;width:4px;height:9px;border:solid var(--navy);border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
-.result{margin-top:28px;display:grid;grid-template-columns:140px 1fr;gap:20px;padding:22px 28px;background:var(--navy);color:#fff;border-radius:8px;font-size:15px}
-.result .l{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.65);padding-top:3px}
-@media(max-width:700px){.check{grid-template-columns:1fr}.result{grid-template-columns:1fr;gap:8px}}
-
-/* timeline */
-.tl{position:relative;padding-left:32px;border-left:1px solid var(--line2)}
-.ev{position:relative;padding:0 0 32px}
-.ev:last-child{padding-bottom:0}
-.ev::before{content:"";position:absolute;left:-36px;top:7px;width:7px;height:7px;border-radius:50%;background:var(--navy)}
-.ev .w{font-size:12px;font-weight:600;color:var(--acc);letter-spacing:.08em}
-.ev h4{font-size:17px;margin-top:6px}
-.ev p{font-size:15px;margin-top:6px;color:var(--text);max-width:60ch}
-.tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:500;color:var(--navy);background:#eef0df;border:1px solid var(--line);border-radius:4px;padding:4px 10px}
-
-/* lists */
-.list{padding:28px;border:1px solid var(--line);border-radius:8px;background:#fdfaf3}
-.list h3{font-size:17px;margin-bottom:12px}
-.list ol{margin:0;padding-left:0;list-style:none;counter-reset:n}
-.list li{counter-increment:n;display:grid;grid-template-columns:32px 1fr;gap:8px;padding:10px 0;border-top:1px solid var(--line);font-size:15px}
-.list li::before{content:counter(n,decimal-leading-zero);font-size:12px;font-weight:600;color:var(--mut);padding-top:4px;letter-spacing:.06em}
-.list.risk li::before{color:#9a6b2f}
-
-/* final */
-.final{background:var(--navy);color:#fff;border-bottom:0}
-.final .grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:72px;align-items:center}
-.final .eyebrow{color:rgba(255,255,255,.6)}.final .eyebrow b{color:var(--pist)}
-.final h2{color:#fff;font-size:clamp(26px,3vw,36px);margin-top:14px;max-width:22ch}
-.final p{margin-top:18px;color:rgba(255,255,255,.8);max-width:56ch}
-.contact{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:28px}
-.contact .l{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:600}
-.contact .v{font-size:17px;font-weight:600;margin:6px 0 18px;overflow-wrap:anywhere}
-.contact .btn{width:100%;background:var(--bg);color:var(--navy);border-color:var(--bg)}
-.contact .btn:hover{background:var(--bg2);border-color:var(--bg2)}
-@media(max-width:900px){.final .grid{grid-template-columns:1fr;gap:36px}}
-
-footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:24px 0;font-size:13px;color:var(--mut)}
-
-/* reveal (subtle) */
-.rv{opacity:0;transform:translateY(10px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.rv.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;transition:none}}
-@media print{nav.top,.cta{display:none}.rv{opacity:1;transform:none}section{padding:40px 0;break-inside:avoid}.hero{padding:24px 0}.rail{position:static}.final{background:#fff;color:var(--ink)}.final h2,.final p{color:var(--ink)}.contact{border-color:var(--line);color:var(--ink)}.contact .l{color:var(--mut)}}
+/* две анимации по смыслу: схема собирается слева направо, сценарий проигрывается по пятницам */
+.flow .b,.flow .a{opacity:0;transform:translateX(-8px);transition:opacity .5s ease,transform .5s ease}
+.flow.play .b,.flow.play .a{opacity:1;transform:none}
+.flow.play>*:nth-child(2){transition-delay:.25s}.flow.play>*:nth-child(3){transition-delay:.4s}
+.flow.play>*:nth-child(4){transition-delay:.65s}.flow.play>*:nth-child(5){transition-delay:.8s}
+.cal .d b{opacity:0;transition:opacity .35s ease}
+.cal.play .d b{opacity:1}
+.cal.play .d:nth-child(1) b{transition-delay:.1s}.cal.play .d:nth-child(2) b{transition-delay:.35s}.cal.play .d:nth-child(3) b{transition-delay:.6s}.cal.play .d:nth-child(4) b{transition-delay:.85s}
+.cal.play .d:nth-child(5) b{transition-delay:1.1s}.cal.play .d:nth-child(6) b{transition-delay:1.35s}.cal.play .d:nth-child(7) b{transition-delay:1.6s}.cal.play .d:nth-child(8) b{transition-delay:2.1s}
+.cal .d.miss{background:transparent;transition:background .5s ease 2.1s}
+.cal.play .d.miss{background:#f6e7d3}
+.msg{opacity:0;transform:translateY(6px);transition:opacity .5s ease 2.7s,transform .5s ease 2.7s}
+.cal.play .msg{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.flow .b,.flow .a,.cal .d b,.msg{opacity:1;transform:none;transition:none}.cal .d.miss{background:#f6e7d3}}
+@media print{.flow .b,.flow .a,.cal .d b,.msg{opacity:1;transform:none}.cal .d.miss{background:#f6e7d3}}
 </style>
 </head>
 <body>
+<main class="page">
 
-<nav class="top">
-  <div class="wrap">
-    <div class="brand">CLOUD PLUS<small>Коммерческое предложение · Cake Lab</small></div>
+<div class="top">
+  <div class="from"><b>CLOUD PLUS</b>Предварительное коммерческое предложение<br>17 сентября 2026</div>
+  <img src="assets/cakelab-logo.svg" alt="Cake Lab">
+</div>
+
+<div class="req">
+  <span>Кому</span><b data-field="client">Cake Lab</b>
+  <span>По итогам</span><b>встречи от <span data-field="meeting-date">[дата встречи]</span></b>
+  <span>Статус</span><b>предварительное, не оферта</b>
+</div>
+
+<h1>Напоминать клиенту, когда он пропустил привычную покупку</h1>
+<p class="lead">Мы предлагаем добавить к системе Cake Lab небольшой модуль. Он читает историю заказов через ваш API, находит клиентов с устойчивой привычкой — например, торт каждую пятницу — и, когда привычная покупка не состоялась, передаёт событие для персонального напоминания. Сама система при этом не меняется.</p>
+
+<h2>Почему это уместно именно сейчас</h2>
+<p>На встрече прозвучало пять вещей, от которых мы отталкиваемся: у Cake Lab своя система с открытым API; клиенты уже делятся на группы по частоте покупок и возвратам; заказы приходят из приложения, сайта и Telegram-бота и собираются в одном месте; типовые заказы обрабатываются автоматически, сложные — сотрудниками; есть интерес к более глубокому анализу поведения отдельных клиентов.</p>
+<p>Значит, данные для задачи уже есть, а канал для напоминания — тоже. Не хватает одного: чтобы кто-то замечал момент, когда постоянный клиент вдруг не пришёл. Сейчас это видно только по отчёту за период, когда напоминать уже поздно.</p>
+
+<h2>Как модуль встраивается</h2>
+<div class="flow">
+  <div class="b"><b>Система Cake Lab</b><span>история заказов по клиентам — только чтение через API</span></div>
+  <div class="a">→</div>
+  <div class="b"><b>Модуль Cloud Plus</b><span>ищет устойчивые привычки, фиксирует пропуск, формирует событие</span></div>
+  <div class="a">→</div>
+  <div class="b"><b>Telegram-бот или сотрудник</b><span>получает событие и отправляет напоминание — кому и как, решаете вы</span></div>
+</div>
+<p class="note">В вашей системе ничего не дорабатывается и не переписывается. Модуль работает отдельно, доступ — только на чтение, в объёме, который согласуем.</p>
+
+<h2>Один сценарий, на котором проверяем идею</h2>
+<div class="cal">
+  <div class="h"><b>Клиент N</b> · заказывает через приложение «Наполеон» по пятницам</div>
+  <div class="days">
+    <div class="d">пт 3.07<b>заказ</b></div><div class="d">пт 10.07<b>заказ</b></div><div class="d">пт 17.07<b>заказ</b></div><div class="d">пт 24.07<b>заказ</b></div>
+    <div class="d">пт 31.07<b>заказ</b></div><div class="d">пт 7.08<b>заказ</b></div><div class="d">пт 14.08<b>заказ</b></div><div class="d miss">пт 21.08<b>нет заказа</b></div>
+  </div>
+  <div class="r">Семь пятниц подряд — привычка считается устойчивой. В восьмую пятницу заказа нет; по истечении допустимого окна (например, до субботы) модуль формирует событие.</div>
+  <div class="msg"><small>Пример события для бота или сотрудника</small>Клиент N обычно заказывает «Наполеон» по пятницам, последний заказ 14.08. Предложить напоминание?</div>
+</div>
+<p class="note">Что считать устойчивой привычкой (сколько повторов), какое отклонение допустимо и кто получает событие — бот автоматически или сотрудник вручную — договариваемся на обследовании. Текст напоминания согласует Cake Lab.</p>
+
+<h2>Что это даёт Cake Lab</h2>
+<ul>
+  <li>Постоянного клиента, который пропал, видно в ту же неделю, а не в отчёте за квартал.</li>
+  <li>Напоминание про конкретный товар в привычный день — это не рассылка, и клиент воспринимает его иначе.</li>
+  <li>Сотрудникам не нужно вручную просматривать базу в поисках «кто давно не заказывал».</li>
+  <li>Дальше на той же основе можно добавлять другие привычки: «раз в две недели», «перед выходными», «к дате».</li>
+</ul>
+<p class="note">Сколько клиентов удастся вернуть, зависит от глубины истории и качества данных — это и проверяет пилот. Обещать процент до пилота мы не будем.</p>
+
+<h2>Как пойдёт работа</h2>
+<h3>1. Обследование</h3>
+<p>Смотрим документацию и реальные данные API: глубину истории, полноту, как записаны клиент и товар. Вместе определяем правила сценария, канал напоминания, требования к клиентским данным и критерии приёмки пилота. Итог — короткое техническое задание с составом пилота, сроком и стоимостью.</p>
+<h3>2. Пилот на одном сценарии</h3>
+<p>Подключаемся к тестовому контуру API, обрабатываем согласованный срез истории, отлавливаем один тип привычки и пропуск по ней, формируем события. Результат — журнал срабатываний, по которому видно, что модуль находит и что пропускает. Принимаем пилот по критериям из обследования.</p>
+<h3>3. Решение о внедрении</h3>
+<p>По журналу пилота решаем, подключать ли модуль к рабочей системе, какие ещё привычки добавлять и нужен ли для сложных случаев ИИ. Про ИИ заранее ничего не обещаем: для «каждую пятницу» достаточно понятных правил, которые можно проверить руками.</p>
+
+<h2>Условия</h2>
+<table>
+  <thead><tr><th>Этап</th><th>Срок</th><th>Стоимость</th><th>Оплата</th></tr></thead>
+  <tbody>
+    <tr><td class="n">Обследование</td><td data-field="survey-term"><span class="ph">[срок]</span></td><td data-field="survey-price"><span class="ph">[сумма]</span></td><td data-field="survey-pay"><span class="ph">[условия]</span></td></tr>
+    <tr><td class="n">Пилот</td><td>по итогам обследования</td><td>по итогам обследования</td><td>фиксируется в ТЗ</td></tr>
+  </tbody>
+</table>
+<p class="note">Стоимость пилота и внедрения называем только после обследования — до него мы не знаем, что лежит в ваших данных, а оценка «на глаз» невыгодна обеим сторонам. Предложение действительно до <span data-field="valid-until" class="ph">[дата]</span>.</p>
+
+<div class="two">
+  <div>
+    <h3>Что не входит</h3>
     <ul>
-      <li><a href="#summary">Резюме</a></li>
-      <li><a href="#now">Ситуация</a></li>
-      <li><a href="#concept">Решение</a></li>
-      <li><a href="#benefit">Результат</a></li>
-      <li><a href="#trust">Принципы</a></li>
-      <li><a href="#survey">Обследование</a></li>
-      <li><a href="#pilot">Пилот</a></li>
-      <li><a href="#risks">Риски</a></li>
-      <li><a href="#contact">Контакты</a></li>
+      <li>Изменения в системе Cake Lab, приложении, сайте и боте.</li>
+      <li>Отправка сообщений клиентам от нашего имени — только событие для вашего канала.</li>
+      <li>Сложные модели поведения и ИИ — отдельным этапом после пилота, если понадобятся.</li>
     </ul>
-    <div class="for"><span>для</span><img class="cl-logo" src="assets/cakelab-logo.svg" alt="Cake Lab"></div>
   </div>
-</nav>
-
-<header class="hero" id="summary">
-  <div class="wrap grid">
-    <div>
-      <div class="eyebrow">Предварительное коммерческое предложение · 17 сентября 2026</div>
-      <h1>Модуль поведенческого анализа клиентов и персональных уведомлений</h1>
-      <p class="lead">Дополнительный модуль поверх действующей системы Cake Lab. Через открытый API выявляет устойчивые повторяющиеся покупки, фиксирует отклонение от привычного поведения и в согласованный момент формирует событие для персонального уведомления.</p>
-      <div class="cta">
-        <a class="btn" href="#concept">Как работает решение</a>
-        <a class="btn ghost" href="#contact">Следующий шаг</a>
-      </div>
-    </div>
-    <div class="card meta">
-      <div style="justify-content:flex-start;padding:22px 0 18px"><img src="assets/cakelab-logo.svg" alt="Cake Lab" style="height:56px;width:auto"></div>
-      <div><span>Исполнитель</span><b>Cloud Plus</b></div>
-      <div><span>Заказчик</span><b data-field="client">Cake Lab</b></div>
-      <div><span>Статус документа</span><b>Предварительное</b></div>
-      <div><span>Формат работы</span><b>Обследование → пилот</b></div>
-    </div>
+  <div>
+    <h3>Что нужно уточнить до старта</h3>
+    <ul>
+      <li>Кто владелец задачи со стороны Cake Lab и принимает решение.</li>
+      <li>Какие данные и методы доступны через API, какая глубина истории.</li>
+      <li>Кому уходит событие — боту автоматически или сотруднику.</li>
+      <li>Есть ли согласия клиентов на такие сообщения.</li>
+      <li>По каким показателям считать пилот успешным.</li>
+    </ul>
   </div>
-</header>
+</div>
 
-
-<section id="now">
-  <div class="wrap sec">
-    <div class="rail rv"><div class="eyebrow"><b>01</b>Исходная ситуация</div><h2>Что подтверждено по итогам встречи</h2><p>В предложение включены только факты, зафиксированные на встрече. Неподтверждённые функции и гарантии не указаны.</p></div>
-    <div class="facts rv">
-      <div class="fact"><span class="k">01</span><p>У Cake Lab есть собственная система с открытым API.</p></div>
-      <div class="fact"><span class="k">02</span><p>В системе уже применяется базовая кластеризация клиентов — в том числе по частоте покупок и факту возврата.</p></div>
-      <div class="fact"><span class="k">03</span><p>Каналы обращений — приложение, сайт и Telegram-бот; обращения из всех каналов консолидируются в одной системе.</p></div>
-      <div class="fact"><span class="k">04</span><p>Значительная часть типовых заказов автоматизирована, сложные заявки обрабатывают сотрудники.</p></div>
-      <div class="fact"><span class="k">05</span><p>Рассматривается возможность более глубокого анализа индивидуального поведения клиентов.</p></div>
-    </div>
+<div class="next">
+  <h2>Следующий шаг</h2>
+  <p>Рабочая встреча на 45 минут с владельцем задачи и тем, кто отвечает за API. На ней подтверждаем сценарий, смотрим, какие данные реально доступны, и договариваемся о границах обследования.</p>
+  <div class="sign">
+    <div><b>Cloud Plus</b><span data-field="person">[Контактное лицо]</span><br><span data-field="phone">[Телефон / e-mail]</span></div>
+    <div><b>Удобное время</b><span>предложите два-три варианта на этой или следующей неделе — подстроимся</span></div>
   </div>
-</section>
+</div>
 
-<section id="concept">
-  <div class="wrap sec">
-    <div class="rail rv"><div class="eyebrow"><b>02</b>Решение</div><h2>Дополни&shy;тельный модуль поверх действующей системы</h2><p>Система Cake Lab не изменяется: модуль читает данные через API и возвращает событие.</p></div>
-    <div>
-      <div class="pipe rv">
-        <div class="node"><div class="n">ШАГ 1</div><h4>История покупок</h4><p>Получение данных через API Cake Lab</p></div>
-        <div class="node"><div class="n">ШАГ 2</div><h4>Паттерны</h4><p>Выявление устойчивых повторяющихся покупок</p></div>
-        <div class="node"><div class="n">ШАГ 3</div><h4>Отклонение</h4><p>Фиксация расхождения с ожидаемым поведением</p></div>
-        <div class="node"><div class="n">ШАГ 4</div><h4>Событие</h4><p>Формирование события для уведомления</p></div>
-        <div class="node"><div class="n">ШАГ 5</div><h4>Передача</h4><p>В согласованный канал или ответственному сотруднику</p></div>
-      </div>
-
-      <div class="two">
-        <div class="box rv">
-          <h3>Правила — в первую очередь</h3>
-          <p>Базовые закономерности («каждый вторник», «раз в две недели») обрабатываются прозрачными алгоритмическими правилами. Их можно объяснить, проверить и настроить.</p>
-          <ul><li>Порог устойчивости паттерна</li><li>Допустимое отклонение по времени</li><li>Момент срабатывания</li></ul>
-        </div>
-        <div class="box dark rv">
-          <h3>Искусственный интеллект — по необходимости</h3>
-          <p>Целесообразность применения ИИ для сложных отклонений определяется после обследования данных, а не заранее. Никаких обещаний «умной системы» до проверки на реальной истории.</p>
-          <ul><li>Решение принимается по качеству и глубине данных</li><li>Сложные паттерны — отдельным этапом</li><li>В пилот включается только необходимое</li></ul>
-        </div>
-      </div>
-
-      <div class="scen rv">
-        <div class="head"><h3>Подтверждённый сценарий: регулярная покупка в определённый день</h3><p>Клиент регулярно покупает определённый товар в определённый день недели. Когда устойчивая покупка пропущена, система фиксирует отклонение и формирует событие для персонального напоминания.</p></div>
-        <div class="weeks">
-          <div class="wk hit">Неделя 1<b>покупка</b></div><div class="wk hit">Неделя 2<b>покупка</b></div><div class="wk hit">Неделя 3<b>покупка</b></div><div class="wk hit">Неделя 4<b>покупка</b></div>
-          <div class="wk hit">Неделя 5<b>покупка</b></div><div class="wk hit">Неделя 6<b>покупка</b></div><div class="wk hit">Неделя 7<b>покупка</b></div><div class="wk miss">Неделя 8<b>пропуск → событие</b></div>
-        </div>
-        <ol>
-          <li>Покупка повторяется — паттерн признаётся устойчивым.</li>
-          <li>Наступает ожидаемый день — покупки нет.</li>
-          <li>Выдержано допустимое отклонение — фиксируется событие.</li>
-          <li>Событие передаётся в канал или ответственному сотруднику.</li>
-        </ol>
-        <div class="note">Правила устойчивости, допустимое отклонение, момент срабатывания и порядок отправки согласовываются с заказчиком на этапе обследования.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="benefit">
-  <div class="wrap sec">
-    <div class="rail rv"><div class="eyebrow"><b>03</b>Результат для бизнеса</div><h2>Что получает Cake Lab</h2><p>Коммерческий эффект и точность зависят от качества данных и правил сценария и оцениваются по итогам пилота.</p></div>
-    <div class="bens rv">
-      <div class="ben"><div class="k">01</div><h4>Своевременное выявление изменений</h4><p>Изменение привычного поведения клиента видно в момент, когда оно происходит, а не по итогам отчётного периода.</p></div>
-      <div class="ben"><div class="k">02</div><h4>Персональный повторный контакт</h4><p>Сообщение о конкретном товаре в конкретный момент — вместо массовой рассылки.</p></div>
-      <div class="ben"><div class="k">03</div><h4>Снижение ручного анализа</h4><p>Сокращение объёма ручной работы с клиентской базой.</p></div>
-      <div class="ben"><div class="k">04</div><h4>Основа для программы удержания</h4><p>База для последующих сценариев удержания клиентов.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="trust">
-  <div class="wrap sec">
-    <div class="rail rv"><div class="eyebrow"><b>04</b>Принципы работы</div><h2>На чём основано предложение</h2><p>Документ построен так, чтобы каждое утверждение можно было проверить.</p></div>
-    <div class="bens rv">
-      <div class="ben"><div class="k">01</div><h4>Только подтверждённые факты</h4><p>В основе — пять фактов, зафиксированных на встрече. Неподтверждённые функции и гарантии не включены.</p></div>
-      <div class="ben"><div class="k">02</div><h4>Риски названы до старта</h4><p>Шесть рисков и десять открытых вопросов вынесены в отдельный раздел документа.</p></div>
-      <div class="ben"><div class="k">03</div><h4>Стоимость и сроки — после обследования</h4><p>Оценка даётся только после проверки данных. Это защищает обе стороны от необоснованных ожиданий.</p></div>
-      <div class="ben"><div class="k">04</div><h4>Проверяемый результат</h4><p>Пилот завершается техническим журналом срабатываний — итог подтверждается записями, а не презентацией.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="survey">
-  <div class="wrap sec">
-    <div class="rail rv"><div class="eyebrow"><b>05</b>Обследование</div><h2>Первый этап — обследование</h2><p>Сроки и стоимость разработки не могут быть обоснованно названы до проверки данных и согласования правил.</p></div>
-    <div class="rv">
-      <div class="check">
-        <div class="ck"><i></i>Определить владельца задачи со стороны заказчика</div>
-        <div class="ck"><i></i>Подтвердить бизнес-цель и актуальность проекта</div>
-        <div class="ck"><i></i>Изучить документацию API и доступные данные</div>
-        <div class="ck"><i></i>Оценить глубину, полноту и качество истории покупок</div>
-        <div class="ck"><i></i>Согласовать критерии выявления паттерна и отклонения</div>
-        <div class="ck"><i></i>Определить порядок формирования и передачи уведомления</div>
-        <div class="ck"><i></i>Согласовать требования к работе с клиентскими данными</div>
-        <div class="ck"><i></i>Зафиксировать границы и критерии приёмки пилота</div>
-      </div>
-      <div class="result"><div class="l">Результат этапа</div><p>Согласованное техническое задание, состав пилота, сроки, стоимость и план реализации.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="pilot">
-  <div class="wrap sec">
-    <div class="rail rv"><div class="eyebrow"><b>06</b>Пилот</div><h2>Ограниченный пилот на одном сценарии</h2><p>Окончательный состав определяется совместно с заказчиком по итогам обследования и настоящим документом не фиксируется.</p></div>
-    <div class="tl rv">
-      <div class="ev"><div class="w">ШАГ 1</div><h4>Подключение к тестовому контуру API</h4><p>Без доступа к рабочим данным и без изменений в действующей системе.</p></div>
-      <div class="ev"><div class="w">ШАГ 2</div><h4>Обработка согласованного набора истории</h4><p>Ограниченный, заранее согласованный срез исторических данных.</p></div>
-      <div class="ev"><div class="w">ШАГ 3</div><h4>Один подтверждённый тип паттерна</h4><p>Например, регулярная покупка в определённый день недели.</p></div>
-      <div class="ev"><div class="w">ШАГ 4</div><h4>Фиксация отклонения и формирование события</h4><p>По согласованным правилам выявления и срабатывания.</p></div>
-      <div class="ev"><div class="w">ШАГ 5</div><h4>Технический журнал срабатываний</h4><p>Результат пилота подтверждается записями журнала.</p><span class="tag">Критерии приёмки определяются на этапе обследования</span></div>
-    </div>
-  </div>
-</section>
-
-<section id="risks">
-  <div class="wrap sec">
-    <div class="rail rv"><div class="eyebrow"><b>07</b>Риски и открытые вопросы</div><h2>Что необходимо подтвердить до старта</h2><p>Открытые пункты вынесены в документ, чтобы обсудить их на встрече, а не обнаружить в ходе проекта.</p></div>
-    <div class="two rv" style="margin-top:0">
-      <div class="list risk"><h3>Риски, допущения, зависимости</h3><ol>
-        <li>Состав и качество данных API не подтверждены.</li>
-        <li>Канал уведомления и возможность автоматической отправки не согласованы.</li>
-        <li>Не определены правила выявления устойчивого паттерна.</li>
-        <li>Не подтверждены правовые основания и согласия клиентов на коммуникации.</li>
-        <li>Инициатор и ответственный владелец проекта со стороны заказчика не установлен.</li>
-        <li>Сроки, стоимость и показатели успешности определяются только после обследования.</li>
-      </ol></div>
-      <div class="list"><h3>Вопросы для согласования</h3><ol>
-        <li>Кто является владельцем задачи и принимает решение по проекту?</li>
-        <li>Является ли поведенческий анализ актуальной задачей?</li>
-        <li>Какие методы и данные доступны через API?</li>
-        <li>Какова глубина и полнота истории покупок?</li>
-        <li>Как определять устойчивую покупку и момент отклонения?</li>
-        <li>Кому передавать событие: сотруднику или клиенту?</li>
-        <li>Какой канал коммуникации использовать?</li>
-        <li>Кто согласует содержание уведомлений?</li>
-        <li>Какие показатели означают успешность пилота?</li>
-        <li>Какие требования к хранению и обработке клиентских данных?</li>
-      </ol></div>
-    </div>
-  </div>
-</section>
-
-<section class="final" id="contact">
-  <div class="wrap grid">
-    <div class="rv">
-      <div class="eyebrow"><b>08</b>Следующий шаг</div>
-      <h2>Рабочая встреча с владельцем задачи и техническим представителем</h2>
-      <p>На встрече подтверждаем бизнес-сценарий, проверяем доступность данных и определяем границы обследования и пилота.</p>
-    </div>
-    <div class="contact rv">
-      <div class="l">Исполнитель</div><div class="v">Cloud Plus</div>
-      <div class="l">Контактное лицо</div><div class="v" data-field="person">[Контактное лицо]</div>
-      <div class="l">Телефон / Email</div><div class="v" data-field="phone">[Телефон / Email]</div>
-      <a class="btn" href="#" data-field="link">Назначить встречу</a>
-    </div>
-  </div>
-</section>
-
-<div class="wrap"><footer><span>© 2026 Cloud Plus</span><span>Предварительное коммерческое предложение · не является офертой · 17 сентября 2026</span></footer></div>
-
+<footer><span>Cloud Plus · предварительное предложение для Cake Lab</span><span>17 сентября 2026 · не является офертой</span></footer>
+</main>
 <script>
 (function(){
-  const links=[...document.querySelectorAll("nav.top ul a")], secs=links.map(a=>document.querySelector(a.getAttribute("href")));
-  addEventListener("scroll",()=>{ let cur=0; secs.forEach((s,i)=>{ if(s && s.getBoundingClientRect().top<=100) cur=i; }); links.forEach((a,i)=>a.classList.toggle("on",i===cur)); },{passive:true});
-  const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} }),{threshold:.1});
-  document.querySelectorAll(".rv").forEach(el=>io.observe(el));
+  if(!("IntersectionObserver" in window)){document.querySelectorAll(".flow,.cal").forEach(e=>e.classList.add("play"));return;}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("play");io.unobserve(e.target);}}),{threshold:.35});
+  document.querySelectorAll(".flow,.cal").forEach(e=>io.observe(e));
 })();
 </script>
 </body>
