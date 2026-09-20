@@ -90,25 +90,52 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
 .cal.play .msg{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){.flow .b,.flow .a,.cal .d b,.msg{opacity:1;transform:none;transition:none}.cal .d.miss{background:#f6e7d3}}
 @media print{.flow .b,.flow .a,.cal .d b,.msg{opacity:1;transform:none}.cal .d.miss{background:#f6e7d3}}
+
+/* появление блоков по мере чтения: короткое, 10 px, без «взлётов» */
+.rv{opacity:0;transform:translateY(10px);transition:opacity .45s ease,transform .45s ease}
+.rv.in{opacity:1;transform:none}
+.top.rv{transition-delay:.05s}h1.rv{transition-delay:.15s}.lead.rv{transition-delay:.3s}
+/* списки и таблица — по строке */
+.stag>*{opacity:0;transform:translateY(6px);transition:opacity .4s ease,transform .4s ease}
+.stag.in>*{opacity:1;transform:none}
+.stag.in>*:nth-child(1){transition-delay:.05s}.stag.in>*:nth-child(2){transition-delay:.17s}.stag.in>*:nth-child(3){transition-delay:.29s}
+.stag.in>*:nth-child(4){transition-delay:.41s}.stag.in>*:nth-child(5){transition-delay:.53s}.stag.in>*:nth-child(6){transition-delay:.65s}
+/* стрелки в схеме: после сборки по ним один раз «проходят» данные */
+.flow .a{position:relative}
+.flow.play .a{animation:arrowpulse .9s ease 1.1s 1}
+.flow.play .a:nth-child(4){animation-delay:1.35s}
+@keyframes arrowpulse{0%{color:var(--mut)}40%{color:var(--green);transform:translateX(3px)}100%{color:var(--mut)}}
+/* пропущенная пятница один раз мигает, когда подсветилась */
+.cal.play .d.miss b{animation:missblink .5s ease 2.35s 2}
+@keyframes missblink{50%{opacity:.35}}
+/* этапы: полоса слева дорисовывается сверху вниз */
+.steps{position:relative;padding-left:20px}
+.steps::before{content:"";position:absolute;left:0;top:8px;bottom:8px;width:2px;background:var(--line);transform:scaleY(0);transform-origin:top;transition:transform 1.2s ease}
+.steps.in::before{transform:scaleY(1)}
+/* следующий шаг: рамка проявляется в цвет бренда */
+.next{transition:border-color .8s ease .3s}
+.next.in{border-color:var(--olive)}
+@media(prefers-reduced-motion:reduce){.rv,.stag>*{opacity:1;transform:none;transition:none}.flow.play .a,.cal.play .d.miss b{animation:none}.steps::before{transform:none;transition:none}}
+@media print{.rv,.stag>*{opacity:1;transform:none}.steps::before{transform:none}}
 </style>
 </head>
 <body>
 <main class="page">
 
-<div class="top">
+<div class="top rv">
   <div class="from"><b>CLOUD PLUS</b>Предварительное коммерческое предложение<br>17 сентября 2026</div>
   <img src="assets/cakelab-logo.svg" alt="Cake Lab">
 </div>
 
 
-<h1>Напоминать клиенту, когда он пропустил привычную покупку</h1>
-<p class="lead">Предлагаем поставить рядом с вашей системой небольшой модуль. Он читает историю заказов через API, находит клиентов с устойчивой привычкой — скажем, торт каждую пятницу — и, когда очередной заказ не пришёл, отдаёт событие боту или сотруднику, чтобы напомнить. В самой системе Cake Lab ничего не меняем.</p>
+<h1 class="rv">Напоминать клиенту, когда он пропустил привычную покупку</h1>
+<p class="lead rv">Предлагаем поставить рядом с вашей системой небольшой модуль. Он читает историю заказов через API, находит клиентов с устойчивой привычкой — скажем, торт каждую пятницу — и, когда очередной заказ не пришёл, отдаёт событие боту или сотруднику, чтобы напомнить. В самой системе Cake Lab ничего не меняем.</p>
 
-<h2>Что мы поняли на встрече</h2>
-<p>У Cake Lab своя система с открытым API, заказы из приложения, сайта и Telegram-бота уже собираются в ней, клиенты разбиты на группы по частоте покупок. То есть история по каждому клиенту есть, и канал, через который ему можно написать, тоже есть.</p>
-<p>Нет только одного: никто не замечает момент, когда постоянный клиент вдруг не пришёл. Сейчас это видно в отчёте за месяц — а к тому времени напоминать уже поздно. Вот эту дырку и закрываем.</p>
+<h2 class="rv">Что мы поняли на встрече</h2>
+<p class="rv">У Cake Lab своя система с открытым API, заказы из приложения, сайта и Telegram-бота уже собираются в ней, клиенты разбиты на группы по частоте покупок. То есть история по каждому клиенту есть, и канал, через который ему можно написать, тоже есть.</p>
+<p class="rv">Нет только одного: никто не замечает момент, когда постоянный клиент вдруг не пришёл. Сейчас это видно в отчёте за месяц — а к тому времени напоминать уже поздно. Вот эту дырку и закрываем.</p>
 
-<h2>Как это подключается</h2>
+<h2 class="rv">Как это подключается</h2>
 <div class="flow">
   <div class="b"><b>Система Cake Lab</b><span>история заказов по клиентам — только чтение через API</span></div>
   <div class="a">→</div>
@@ -116,9 +143,9 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
   <div class="a">→</div>
   <div class="b"><b>Telegram-бот или сотрудник</b><span>получает событие и пишет клиенту</span></div>
 </div>
-<p class="note">Модуль живёт отдельно и только читает данные. Кто отправляет напоминание — бот сам или сотрудник после проверки — решаете вы.</p>
+<p class="note rv">Модуль живёт отдельно и только читает данные. Кто отправляет напоминание — бот сам или сотрудник после проверки — решаете вы.</p>
 
-<h2>Как это выглядит на одном клиенте</h2>
+<h2 class="rv">Как это выглядит на одном клиенте</h2>
 <div class="cal">
   <div class="h"><b>Клиент N</b> · заказывает через приложение «Наполеон» по пятницам</div>
   <div class="days">
@@ -128,39 +155,41 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
   <div class="r">Семь пятниц подряд — это уже привычка. В восьмую заказа нет; если до субботы он так и не появился, модуль создаёт событие.</div>
   <div class="msg"><small>Пример события для бота или сотрудника</small>Клиент N обычно заказывает «Наполеон» по пятницам, последний заказ 14.08. Предложить напоминание?</div>
 </div>
-<p class="note">Сколько повторов считать привычкой и сколько ждать после пропуска — настраивается. Текст напоминания пишет Cake Lab, мы его не придумываем.</p>
+<p class="note rv">Сколько повторов считать привычкой и сколько ждать после пропуска — настраивается. Текст напоминания пишет Cake Lab, мы его не придумываем.</p>
 
-<h2>Что это даёт</h2>
-<ul>
+<h2 class="rv">Что это даёт</h2>
+<ul class="stag">
   <li>Пропавшего постоянного клиента видно в ту же неделю, а не в отчёте за квартал.</li>
   <li>Напоминание про конкретный торт в привычный день — это не рассылка, на него отвечают иначе.</li>
   <li>Сотрудникам не нужно вручную искать в базе, кто давно не заказывал.</li>
   <li>Потом на той же основе добавляются другие привычки: раз в две недели, перед выходными, к дате.</li>
 </ul>
-<p class="note">Сколько клиентов так вернётся — покажет пилот; цифру заранее не называем.</p>
+<p class="note rv">Сколько клиентов так вернётся — покажет пилот; цифру заранее не называем.</p>
 
-<h2>Как будем делать</h2>
-<h3>1. Обследование</h3>
-<p>Смотрим документацию API и реальные данные: за сколько месяцев есть история, как в ней записаны клиент и товар, что с телефонами и согласиями. Договариваемся, кто получает событие и как выглядит напоминание. На выходе — короткое ТЗ на пилот со сроком и стоимостью.</p>
-<h3>2. Пилот</h3>
-<p>Подключаемся к тестовому API, прогоняем историю за согласованный период, ловим одну привычку — как в примере выше — и пропуски по ней. Результат — журнал: какие клиенты попали, когда сработало, что пропустили. По нему и смотрим, работает или нет.</p>
-<h3>3. Дальше</h3>
-<p>Если журнал устраивает — подключаем модуль к рабочей системе и добавляем следующие привычки. Для «каждую пятницу» хватает простых правил, которые можно проверить руками; ИИ здесь не нужен, и мы его не продаём.</p>
+<h2 class="rv">Как будем делать</h2>
+<div class="steps rv">
+<h3 class="rv">1. Обследование</h3>
+<p class="rv">Смотрим документацию API и реальные данные: за сколько месяцев есть история, как в ней записаны клиент и товар, что с телефонами и согласиями. Договариваемся, кто получает событие и как выглядит напоминание. На выходе — короткое ТЗ на пилот со сроком и стоимостью.</p>
+<h3 class="rv">2. Пилот</h3>
+<p class="rv">Подключаемся к тестовому API, прогоняем историю за согласованный период, ловим одну привычку — как в примере выше — и пропуски по ней. Результат — журнал: какие клиенты попали, когда сработало, что пропустили. По нему и смотрим, работает или нет.</p>
+<h3 class="rv">3. Дальше</h3>
+<p class="rv">Если журнал устраивает — подключаем модуль к рабочей системе и добавляем следующие привычки. Для «каждую пятницу» хватает простых правил, которые можно проверить руками; ИИ здесь не нужен, и мы его не продаём.</p>
+</div>
 
-<h2>Условия</h2>
-<table>
+<h2 class="rv">Условия</h2>
+<table class="rv">
   <thead><tr><th>Этап</th><th>Срок</th><th>Стоимость</th><th>Оплата</th></tr></thead>
-  <tbody>
+  <tbody class="stag">
     <tr><td class="n">Обследование</td><td data-field="survey-term"><span class="ph">[срок]</span></td><td data-field="survey-price"><span class="ph">[сумма]</span></td><td data-field="survey-pay"><span class="ph">[условия]</span></td></tr>
     <tr><td class="n">Пилот</td><td>по итогам обследования</td><td>по итогам обследования</td><td>фиксируется в ТЗ</td></tr>
   </tbody>
 </table>
-<p class="note">Цену пилота даём после обследования — до него мы не видели ваших данных. Предложение действительно до <span data-field="valid-until" class="ph">[дата]</span>.</p>
+<p class="note rv">Цену пилота даём после обследования — до него мы не видели ваших данных. Предложение действительно до <span data-field="valid-until" class="ph">[дата]</span>.</p>
 
-<div class="two">
+<div class="two rv">
   <div>
     <h3>Что не входит</h3>
-    <ul>
+    <ul class="stag">
       <li>Доработки в системе Cake Lab, приложении, сайте и боте.</li>
       <li>Отправка сообщений клиентам от нашего имени — только событие в ваш канал.</li>
       <li>Сложные модели поведения — отдельно, после пилота, если понадобятся.</li>
@@ -168,7 +197,7 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
   </div>
   <div>
     <h3>Что спросим на встрече</h3>
-    <ul>
+    <ul class="stag">
       <li>Кто со стороны Cake Lab ведёт задачу и принимает решение.</li>
       <li>Что именно отдаёт API и за какой период есть история.</li>
       <li>Есть ли у клиентов согласие на такие сообщения.</li>
@@ -176,7 +205,7 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
   </div>
 </div>
 
-<div class="next">
+<div class="next rv">
   <h2>Следующий шаг</h2>
   <p>Встреча на 45 минут с тем, кто ведёт задачу, и тем, кто отвечает за API. Посмотрим вместе, что реально лежит в данных, и договоримся, с чего начинаем обследование.</p>
   <div class="sign">
@@ -189,9 +218,11 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
 </main>
 <script>
 (function(){
-  if(!("IntersectionObserver" in window)){document.querySelectorAll(".flow,.cal").forEach(e=>e.classList.add("play"));return;}
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add("play");io.unobserve(e.target);}}),{threshold:.35});
-  document.querySelectorAll(".flow,.cal").forEach(e=>io.observe(e));
+  const targets=document.querySelectorAll(".rv,.stag,.flow,.cal");
+  const show=e=>{e.classList.add("in");if(e.matches(".flow,.cal"))e.classList.add("play");};
+  if(!("IntersectionObserver" in window)||matchMedia("(prefers-reduced-motion: reduce)").matches){targets.forEach(show);return;}
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){show(e.target);io.unobserve(e.target);}}),{threshold:.15,rootMargin:"0px 0px -6% 0px"});
+  targets.forEach(e=>io.observe(e));
 })();
 </script>
 </body>
