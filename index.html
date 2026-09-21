@@ -184,6 +184,17 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
 .gcal .msg{opacity:1;transform:none;transition:none}
 .gcal.rv{opacity:0;transform:translateY(8px);transition:opacity .6s ease,transform .6s ease}.gcal.rv.in{opacity:1;transform:none}
 @media print{.glass{backdrop-filter:none;background:rgba(255,255,255,.7)}}
+
+/* фон-фото под календарём, на всю ширину */
+.bleed{position:relative;left:50%;width:100vw;transform:translateX(-50%);margin-top:20px;padding:28px max(24px,calc((100vw - 760px)/2)) 32px;
+  background:#ece6d8 url(assets/cake.jpg) right center/auto 100% no-repeat;isolation:isolate}
+.bleed::before{content:"";position:absolute;inset:0;z-index:0;
+  background:linear-gradient(90deg,#ece6d8 0%,#ece6d8 48%,rgba(236,230,216,.9) 58%,rgba(236,230,216,.45) 75%,rgba(236,230,216,.35) 100%)}
+.bleed>*{position:relative;z-index:1}
+.bleed .gcal{margin-top:0;padding:0;overflow:visible}
+.bleed .gcal::before,.bleed .gcal::after,.bleed .gcal .bg{display:none}
+.bleed .glass{background:rgba(255,255,255,.5)}
+@media(max-width:900px){.bleed{background-size:auto 70%;background-position:right bottom}}
 </style>
 </head>
 <body>
@@ -213,7 +224,7 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
 <p class="note rv">Модуль живёт отдельно и только читает данные. Кто отправляет напоминание — бот сам или сотрудник после проверки — решаете вы.</p>
 
 <h2 class="rv">Как это выглядит на одном клиенте</h2>
-<div class="gcal rv" id="gcal">
+<div class="bleed"><div class="gcal rv" id="gcal">
   <div class="bg"></div>
   <div class="glass head">
     <div class="who"><b>Клиент N</b> · заказывает через приложение «Наполеон» по пятницам</div>
@@ -238,7 +249,7 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
   </div>
 
   <div class="glass pop" id="pop"></div>
-</div>
+</div></div>
 <p class="note rv">Сколько повторов считать привычкой и сколько ждать после пропуска — настраивается. Текст напоминания пишет Cake Lab, мы его не придумываем.</p>
 
 <h2 class="rv">Что это даёт</h2>
