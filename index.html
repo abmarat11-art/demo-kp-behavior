@@ -238,6 +238,53 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
 .chk.in li:nth-child(4){transition-delay:2.8s}.chk.in li:nth-child(4) .ck *{transition-delay:3.25s}
 @media(prefers-reduced-motion:reduce){.chk li{opacity:1;transform:none;transition:none}.chk .ck path{stroke-dashoffset:0;transition:none}.chk .ck circle{fill:var(--pist);stroke:var(--olive)}}
 @media print{.chk li{opacity:1;transform:none}.chk .ck path{stroke-dashoffset:0}.chk .ck circle{fill:var(--pist);stroke:var(--olive)}}
+
+/* Telegram-бот: окно чата (как в демо ювелирки) */
+.bot{margin-top:28px}
+.bot-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap;margin-bottom:12px}
+.bot-top h3{margin:0;font-size:18px}
+.bot-top p{margin:4px 0 0;font-size:13px;color:var(--mut)}
+.bot-run{display:inline-flex;align-items:center;gap:6px;background:#5e6031;color:#f5efe1;border:0;border-radius:12px;padding:9px 14px;font:600 13px/1 "Montserrat",system-ui,sans-serif;cursor:pointer}
+.bot-run:hover{background:#6d6f38}
+.bot-run svg,.bot-head .av svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.bot-grid{display:grid;grid-template-columns:2fr 1fr;gap:12px}
+.bot-win{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#f6f7ec;box-shadow:0 1px 2px rgba(26,23,20,.05),0 10px 30px -16px rgba(26,23,20,.25)}
+.bot-head{background:#4a3526;color:#fff;padding:11px 16px;display:flex;align-items:center;gap:10px}
+.bot-head .av{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center}
+.bot-head b{display:block;font-size:14px;font-weight:600}.bot-head small{display:block;font-size:11px;color:rgba(255,255,255,.65)}
+.bot-body{padding:16px;min-height:380px;display:flex;flex-direction:column;gap:12px}
+.bot-msg{display:flex}.bot-msg.u{justify-content:flex-end}
+.bot-msg .bb{max-width:80%;border-radius:16px;padding:10px 14px;font-size:14px;line-height:1.5;animation:gi .5s cubic-bezier(.2,.8,.2,1) both}
+.bot-msg.b .bb{background:#fff;color:#2a2520;border-bottom-left-radius:4px;box-shadow:0 1px 2px rgba(26,23,20,.06)}
+.bot-msg.u .bb{background:#4a3526;color:#fff;border-bottom-right-radius:4px}
+.bot-msg .bb .tag{display:block;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:#847a6b;margin-bottom:4px}
+.bot-msg .bb em{display:block;font-style:italic;opacity:.85;margin-top:4px;font-size:13px}
+.bot-card2{margin-top:8px;background:#faf3dc;border:1px solid #e6cf8a;border-radius:12px;padding:10px 12px;font-size:13px;color:#2a2520}
+.bot-card2 .t{font-weight:700;color:#8a6614;margin-bottom:4px}
+.bot-card2 .g{display:grid;grid-template-columns:1fr auto;gap:2px 12px}
+.bot-card2 .g span:nth-child(odd){color:#847a6b}.bot-card2 .g span:nth-child(even){font-weight:600;text-align:right}
+.bot-typing{display:flex}.bot-typing span{background:#fff;border-radius:16px;border-bottom-left-radius:4px;padding:10px 16px;box-shadow:0 1px 2px rgba(26,23,20,.06);color:#a99e86}
+.bot-typing span::after{content:'▍';animation:bl 1s steps(1) infinite;color:#c19a2e}
+.bot-act{display:flex;justify-content:flex-end;gap:8px;padding-top:4px;animation:gi .5s cubic-bezier(.2,.8,.2,1) both}
+.bot-act button{border-radius:12px;padding:9px 16px;font:600 13px/1 "Montserrat",system-ui,sans-serif;cursor:pointer;border:1px solid transparent}
+.bot-act .ok{background:#5e6031;color:#f5efe1}.bot-act .ok:hover{background:#6d6f38}
+.bot-act .alt{background:#fff;color:#5c5347;border-color:rgba(26,23,20,.1)}
+.bot-done{background:#f6f7ec;border:1px solid #b3b56e;border-radius:12px;padding:12px 14px;font-size:14px;color:#5e6031;display:flex;gap:10px;align-items:flex-start;animation:gi .5s cubic-bezier(.2,.8,.2,1) both}
+.bot-done .ck{width:20px;height:20px;border-radius:50%;background:#5e6031;color:#fff;display:flex;align-items:center;justify-content:center;flex:0 0 20px;font-size:12px}
+.bot-done b{font-weight:600}
+.bot-side{display:flex;flex-direction:column;gap:12px}
+.bot-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.bot-card h4{margin:0 0 10px;font-size:15px;color:var(--ink)}
+.bot-card ul{list-style:none;margin:0;padding:0}
+.bot-card li{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-top:1px solid rgba(26,23,20,.08)}
+.bot-card li:first-child{border-top:0}
+.bot-card .ic{width:30px;height:30px;border-radius:10px;background:#faf3dc;display:flex;align-items:center;justify-content:center;font-size:14px;flex:0 0 30px}
+.bot-card b{display:block;font-size:14px;color:var(--ink);font-weight:600}.bot-card small{display:block;font-size:12px;color:var(--mut)}
+.bot-note{background:#faf3dc;border:1px solid #f2e4bd;border-radius:14px;padding:12px 14px;font-size:12px;color:#5c5347;line-height:1.55}
+@keyframes gi{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+@keyframes bl{50%{opacity:0}}
+@media(max-width:700px){.bot-grid{grid-template-columns:1fr}.bot-body{min-height:0}}
+@media print{.bot-run{display:none}}
 </style>
 </head>
 <body>
@@ -276,6 +323,32 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
   <li><span class="ck"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7 12.5l3.2 3.2L17 9"/></svg></span><span class="tx"><b>Создаёт событие</b> — с именем клиента, товаром и датой последнего заказа</span></li>
   <li><span class="ck"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7 12.5l3.2 3.2L17 9"/></svg></span><span class="tx"><b>Отдаёт боту или сотруднику</b> — кто пишет клиенту, решаете вы</span></li>
 </ul>
+
+
+<div class="bot rv" id="bot">
+  <div class="bot-top">
+    <div><h3>Telegram-бот или сотрудник</h3><p>Событие от модуля приходит в чат — бот или сотрудник пишет клиенту</p></div>
+    <button type="button" class="bot-run" id="botRun"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="16" height="12" rx="3"/><circle cx="9" cy="13" r="1.3"/><circle cx="15" cy="13" r="1.3"/><path d="M12 3v4"/></svg>Прогнать сценарий</button>
+  </div>
+  <div class="bot-grid">
+    <div class="bot-win">
+      <div class="bot-head"><span class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="7" width="16" height="12" rx="3"/><circle cx="9" cy="13" r="1.3"/><circle cx="15" cy="13" r="1.3"/><path d="M12 3v4"/></svg></span><div><b>Cake Lab Ассистент</b><small>бот напоминаний · онлайн</small></div></div>
+      <div class="bot-body" id="botBody"></div>
+    </div>
+    <div class="bot-side">
+      <div class="bot-card">
+        <h4>Что получает сотрудник</h4>
+        <ul>
+          <li><span class="ic">👤</span><div><b>Кто</b><small>клиент, телефон, канал, откуда заказывал</small></div></li>
+          <li><span class="ic">🎂</span><div><b>Что</b><small>привычный товар и день недели</small></div></li>
+          <li><span class="ic">📅</span><div><b>Когда</b><small>последний заказ и дата пропуска</small></div></li>
+          <li><span class="ic">✍️</span><div><b>Черновик текста</b><small>шаблон пишет Cake Lab, бот подставляет данные</small></div></li>
+        </ul>
+      </div>
+      <div class="bot-note">Модуль только создаёт событие. Кто отправляет напоминание — бот сам или сотрудник после проверки — решаете вы; ответ клиента виден здесь же.</div>
+    </div>
+  </div>
+</div>
 
 <h2 class="rv">Как это выглядит на одном клиенте</h2>
 <div class="bleed"><div class="gcal rv" id="gcal">
@@ -437,6 +510,39 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
   // ?open=2026-07-17 — открыть плашку сразу (для скриншотов)
   var q=new URLSearchParams(location.search).get("open");
   if(q){ var el=cal.querySelector('[data-k="'+q+'"]'); if(el)setTimeout(function(){open(el)},300); }
+})();
+</script>
+<script>
+(function(){
+  var body=document.getElementById("botBody"), btn=document.getElementById("botRun"), root=document.getElementById("bot");
+  var script=[
+    {from:"b",tag:"Событие от модуля Cloudplus",text:"Клиент N обычно заказывает «Наполеон» по пятницам. Сегодня пятница, 21.08 — заказа нет.",
+     card:{t:"Пропуск привычного заказа",rows:[["Клиент","Клиент N · +998 90 ··· 12 34"],["Привычка","«Наполеон» 1,2 кг · по пятницам"],["Подряд","7 заказов, 3.07 – 14.08"],["Последний","пт 14.08, 11:50"],["Канал","приложение"]]}},
+    {from:"b",text:"Черновик напоминания по вашему шаблону:",em:"«Добрый день! Сегодня пятница — ваш «Наполеон» уже готовится. Отложить для вас к вечеру?»"},
+    {from:"b",text:"Отправить клиенту или показать сотруднику на проверку?"}
+  ];
+  var timers=[];function clear(){timers.forEach(clearTimeout);timers=[];}
+  function el(h){var d=document.createElement("div");d.innerHTML=h;return d.firstElementChild;}
+  function msg(m){
+    var h='<div class="bot-msg '+m.from+'"><div class="bb">'+(m.tag?'<span class="tag">'+m.tag+'</span>':'')+m.text+(m.em?'<em>'+m.em+'</em>':'');
+    if(m.card){h+='<div class="bot-card2"><div class="t">→ '+m.card.t+'</div><div class="g">'+m.card.rows.map(function(r){return '<span>'+r[0]+'</span><span>'+r[1]+'</span>';}).join('')+'</div></div>';}
+    return el(h+'</div></div>');
+  }
+  function actions(){
+    var a=el('<div class="bot-act"><button type="button" class="ok">Отправить</button><button type="button" class="alt">Изменить</button></div>');
+    a.querySelector(".ok").onclick=function(){a.remove();done();};
+    a.querySelector(".alt").onclick=function(){a.remove();body.appendChild(msg({from:"u",text:"Заменить «к вечеру» на «к 18:00»"}));typing(function(){body.appendChild(msg({from:"b",text:"Исправил:",em:"«Добрый день! Сегодня пятница — ваш «Наполеон» уже готовится. Отложить для вас к 18:00?»"}));body.appendChild(actions());});};
+    return a;
+  }
+  function done(){
+    body.appendChild(el('<div class="bot-done"><span class="ck">✓</span><div><b>Отправлено.</b> Клиент N получил напоминание в 11:05 · канал: приложение. Ответ клиента появится в этом же чате.</div></div>'));
+    timers.push(setTimeout(function(){typing(function(){body.appendChild(msg({from:"u",tag:"Клиент N",text:"Да, отложите к 18:00, спасибо 🙏"}));});},1800));
+  }
+  function typing(cb){var t=el('<div class="bot-typing"><span></span></div>');body.appendChild(t);timers.push(setTimeout(function(){t.remove();cb();},700));}
+  function run(){clear();body.innerHTML="";var i=0;(function tick(){if(i>=script.length){body.appendChild(actions());return;}typing(function(){body.appendChild(msg(script[i]));i++;timers.push(setTimeout(tick,600));});})();}
+  btn.addEventListener("click",run);
+  var started=false;
+  if("IntersectionObserver" in window){new IntersectionObserver(function(es,io){es.forEach(function(e){if(e.isIntersecting&&!started){started=true;run();io.disconnect();}});},{threshold:.3}).observe(root);}else{run();}
 })();
 </script>
 </body>
