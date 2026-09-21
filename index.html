@@ -218,6 +218,26 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
 .hub .c rect{fill:#fff;stroke:#e6e0cf;stroke-width:1;filter:drop-shadow(0 6px 18px rgba(46,81,59,.18))}
 .hub .c text{font-size:22px;font-weight:600;fill:var(--ink);text-anchor:middle;letter-spacing:-.01em}
 @media(max-width:600px){.hub{padding:12px 4px 2px}.hub .p text{font-size:17px}.hub .c text{font-size:24px}.hub-l{font-size:11px}}
+
+/* «Паттерн» — чек-лист с галочками */
+.chk{list-style:none;margin:22px 0 0;padding:0;max-width:64ch}
+.chk li{display:flex;gap:14px;align-items:flex-start;padding:12px 0;border-top:1px solid var(--line);font-size:16px;line-height:1.5;opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease}
+.chk li:last-child{border-bottom:1px solid var(--line)}
+.chk .tx{font-weight:500;color:var(--text)}
+.chk .tx b{font-weight:600;color:var(--ink)}
+.chk .ck{flex:0 0 26px;width:26px;height:26px;margin-top:0}
+.chk .ck svg{width:26px;height:26px;display:block}
+.chk .ck circle{fill:#fff;stroke:var(--line);stroke-width:1.4;transition:fill .35s ease,stroke .35s ease}
+.chk .ck path{fill:none;stroke:var(--green);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20;transition:stroke-dashoffset .45s ease}
+.chk.in li{opacity:1;transform:none}
+.chk.in li .ck circle{fill:var(--pist);stroke:var(--olive)}
+.chk.in li .ck path{stroke-dashoffset:0}
+.chk.in li:nth-child(1){transition-delay:.1s}.chk.in li:nth-child(1) .ck *{transition-delay:.55s}
+.chk.in li:nth-child(2){transition-delay:1.0s}.chk.in li:nth-child(2) .ck *{transition-delay:1.45s}
+.chk.in li:nth-child(3){transition-delay:1.9s}.chk.in li:nth-child(3) .ck *{transition-delay:2.35s}
+.chk.in li:nth-child(4){transition-delay:2.8s}.chk.in li:nth-child(4) .ck *{transition-delay:3.25s}
+@media(prefers-reduced-motion:reduce){.chk li{opacity:1;transform:none;transition:none}.chk .ck path{stroke-dashoffset:0;transition:none}.chk .ck circle{fill:var(--pist);stroke:var(--olive)}}
+@media print{.chk li{opacity:1;transform:none}.chk .ck path{stroke-dashoffset:0}.chk .ck circle{fill:var(--pist);stroke:var(--olive)}}
 </style>
 </head>
 <body>
@@ -248,6 +268,14 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
 </svg>
 </div>
 <p class="note rv">Модуль живёт отдельно и только читает данные. Кто отправляет напоминание — бот сам или сотрудник после проверки — решаете вы.</p>
+
+<h2 class="rv">Паттерн</h2>
+<ul class="chk rv">
+  <li><span class="ck"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7 12.5l3.2 3.2L17 9"/></svg></span><span class="tx"><b>Находит привычку</b> — клиент заказывает одно и то же в один и тот же день</span></li>
+  <li><span class="ck"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7 12.5l3.2 3.2L17 9"/></svg></span><span class="tx"><b>Замечает пропуск</b> — привычный день прошёл, заказа нет</span></li>
+  <li><span class="ck"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7 12.5l3.2 3.2L17 9"/></svg></span><span class="tx"><b>Создаёт событие</b> — с именем клиента, товаром и датой последнего заказа</span></li>
+  <li><span class="ck"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10.5"/><path d="M7 12.5l3.2 3.2L17 9"/></svg></span><span class="tx"><b>Отдаёт боту или сотруднику</b> — кто пишет клиенту, решаете вы</span></li>
+</ul>
 
 <h2 class="rv">Как это выглядит на одном клиенте</h2>
 <div class="bleed"><div class="gcal rv" id="gcal">
