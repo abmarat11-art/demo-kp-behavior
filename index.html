@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --ink:#1f2a22; --text:#33402f; --mut:#6f7a68; --line:#ddd6c4;
+  --ink:#161d18; --text:#232b21; --mut:#5a6455; --line:#ddd6c4;
   --bg:#f7f1e6; --green:#2e513b; --olive:#65744d; --pist:#e9ebd8; --miss:#9a6b2f;
 }
 *{box-sizing:border-box}
@@ -288,13 +288,13 @@ footer{margin-top:40px;font-size:12px;color:var(--mut);display:flex;justify-cont
 
 /* фоновые пятна по краям страницы */
 body{position:relative}
-body::before,body::after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(90px);pointer-events:none;opacity:.9}
-body::before{width:56vw;height:56vw;max-width:900px;max-height:900px;left:-22vw;top:-12vh;background:radial-gradient(circle,#d9dfbf 0%,#e8e3cc 55%,transparent 72%)}
-body::after{width:60vw;height:60vw;max-width:960px;max-height:960px;right:-24vw;bottom:-18vh;background:radial-gradient(circle,#e6ddc1 0%,#dfe3c4 50%,transparent 72%)}
+body::before,body::after{content:"";position:fixed;z-index:-1;border-radius:50%;filter:blur(90px);pointer-events:none;opacity:.6}
+body::before{width:56vw;height:56vw;max-width:900px;max-height:900px;left:-22vw;top:-12vh;background:radial-gradient(circle,#e4e6d0 0%,#ece7d3 55%,transparent 72%)}
+body::after{width:60vw;height:60vw;max-width:960px;max-height:960px;right:-24vw;bottom:-18vh;background:radial-gradient(circle,#e9e0c8 0%,#e7e8d2 50%,transparent 72%)}
 .bgdots{position:fixed;inset:0;z-index:-1;pointer-events:none}
-.bgdots span{position:absolute;border-radius:50%;filter:blur(70px);opacity:.75}
+.bgdots span{position:absolute;border-radius:50%;filter:blur(70px);opacity:.5}
 .bgdots span:nth-child(1){width:34vw;height:34vw;left:-10vw;top:45vh;background:radial-gradient(circle,#e9e0c5,transparent 70%)}
-.bgdots span:nth-child(2){width:30vw;height:30vw;right:-8vw;top:18vh;background:radial-gradient(circle,#dde2c3,transparent 70%)}
+.bgdots span:nth-child(2){width:30vw;height:30vw;right:-8vw;top:18vh;background:radial-gradient(circle,#e6e8d2,transparent 70%)}
 .bgdots span:nth-child(3){width:26vw;height:26vw;right:4vw;top:62vh;background:radial-gradient(circle,#efe4c9,transparent 70%)}
 @media(max-width:900px){body::before,body::after,.bgdots{display:none}}
 @media print{body::before,body::after,.bgdots{display:none}}
